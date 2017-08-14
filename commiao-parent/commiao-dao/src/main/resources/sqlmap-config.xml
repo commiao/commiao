@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="logImpl" value="LOG4J"/>
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.components.domain.pojo.file.FileManager" alias="FileManager"/>
+		<typeAlias type="com.components.domain.pojo.security.Menu" alias="Menu"/>
+		<typeAlias type="com.components.domain.pojo.security.SysUser" alias="SysUser"/>
+		<typeAlias type="com.components.domain.pojo.security.Role" alias="Role"/>
+		<typeAlias type="com.components.domain.pojo.security.Org" alias="Org"/>
+		<typeAlias type="com.components.domain.model.TreeNode" alias="TreeNode"/>
+		<typeAlias type="com.components.domain.model.TreeGrid" alias="TreeGrid"/>
+		<typeAlias type="com.commiao.domain.pojo.user.User" alias="User"/>
+        <typeAlias type="com.commiao.domain.pojo.user.UserEmail" alias="UserEmail"/>
+        <typeAlias type="com.commiao.domain.pojo.user.UserMobile" alias="UserMobile"/>
+        <typeAlias type="com.commiao.domain.pojo.user.UserIdCard" alias="UserIdCard"/>
+        <typeAlias type="com.commiao.domain.pojo.user.UserHeadPic" alias="UserHeadPic"/>
+    </typeAliases>
+	<mappers>
+		<mapper resource="sqlmap/FileManager-mapper.xml"/>
+		<mapper resource="sqlmap/Menu-mapper.xml"/>
+		<mapper resource="sqlmap/SysUser-mapper.xml"/>
+		<mapper resource="sqlmap/Role-mapper.xml"/>
+		<mapper resource="sqlmap/Org-mapper.xml"/>
+		<mapper resource="sqlmap/User-mapper.xml"/>
+		<mapper resource="sqlmap/UserEmail-mapper.xml"/>
+		<mapper resource="sqlmap/UserMobile-mapper.xml"/>
+		<mapper resource="sqlmap/UserIdCard-mapper.xml"/>
+		<mapper resource="sqlmap/UserHeadPic-mapper.xml"/>	
+	</mappers>
+</configuration>

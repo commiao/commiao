@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userEmailMapper">
+	<resultMap type="UserEmail" id="defaultMap">
+		<id column="EMAIL_ID" property="emailId" />
+		<result column="EMAIL_ID" property="emailId" />
+		<result column="EMAIL" property="email" />
+		<result column="ACTIVE_CODE" property="activeCode" />
+		<result column="EMAIL_STATUS" property="emailStatus" />
+		<result column="USER_ID" property="userId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_USER_ID" property="createUserId" />
+		<result column="CREATE_NICKNAME" property="createNickname" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATE_USER_ID" property="updateUserId" />
+		<result column="UPDATE_NICKNAME" property="updateNickname" />
+		<result column="STATUS" property="status" />
+
+	</resultMap>
+	<insert id="insert" parameterType="UserEmail" keyProperty="emailId"
+		useGeneratedKeys="true">
+		insert into user_email
+		(EMAIL,ACTIVE_CODE,EMAIL_STATUS,USER_ID,CREATE_TIME,CREATE_USER_ID,CREATE_NICKNAME,UPDATE_TIME,UPDATE_USER_ID,UPDATE_NICKNAME,STATUS)
+		values(#{email},#{activeCode},#{emailStatus},#{userId},#{createTime},#{createUserId},#{createNickname},#{updateTime},#{updateUserId},#{updateNickname},#{status});
+	</insert>
+	<update id="update" parameterType="UserEmail">
+		update user_email
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="email!=null">
+				EMAIL=#{email},
+			</if>
+			<if test="activeCode!=null">
+				ACTIVE_CODE=#{activeCode},
+			</if>
+			<if test="emailStatus!=null">
+				EMAIL_STATUS=#{emailStatus},
+			</if>
+			<if test="userId!=null">
+				USER_ID=#{userId},
+			</if>
+			<if test="createTime!=null">
+				CREATE_TIME=#{createTime},
+			</if>
+			<if test="createUserId!=null">
+				CREATE_USER_ID=#{createUserId},
+			</if>
+			<if test="createNickname!=null">
+				CREATE_NICKNAME=#{createNickname},
+			</if>
+			<if test="updateTime!=null">
+				UPDATE_TIME=#{updateTime},
+			</if>
+			<if test="updateUserId!=null">
+				UPDATE_USER_ID=#{updateUserId},
+			</if>
+			<if test="updateNickname!=null">
+				UPDATE_NICKNAME=#{updateNickname},
+			</if>
+			<if test="status!=null">
+				STATUS=#{status}
+			</if>
+
+		</trim>
+		where EMAIL_ID=#{emailId};
+
+	</update>
+	<delete id="delete" parameterType="UserEmail">
+		delete from user_email where
+		EMAIL_ID=#{emailId}
+	</delete>
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from user_email
+		where EMAIL_ID = #{id}
+	</delete>
+
+	<select id="getById" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from user_email where EMAIL_ID = #{id} and STATUS=#{status} limit 1
+	</select>
+
+	<select id="findAll" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from user_email where STATUS=#{status}
+		<include refid="query" />
+	</select>
+
+	<select id="getCount" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(EMAIL_ID) from user_email where STATUS=#{status}
+		<include refid="query" />
+	</select>
+	<select id="getOne" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from user_email where STATUS=#{status}
+		<include refid="query" />
+	</select>
+	<sql id="all">
+		EMAIL_ID,EMAIL,ACTIVE_CODE,EMAIL_STATUS,USER_ID,CREATE_TIME,CREATE_USER_ID,CREATE_NICKNAME,UPDATE_TIME,UPDATE_USER_ID,UPDATE_NICKNAME,STATUS
+	</sql>
+
+	<sql id="query">
+		<if test="emailId!= null">
+			and EMAIL_ID=#{emailId}
+		</if>
+		<if test="email!= null">
+			and EMAIL=#{email}
+		</if>
+		<if test="activeCode!= null">
+			and ACTIVE_CODE=#{activeCode}
+		</if>
+		<if test="emailStatus!= null">
+			and EMAIL_STATUS=#{emailStatus}
+		</if>
+		<if test="userId!= null">
+			and USER_ID=#{userId}
+		</if>
+		<if test="createTime!= null">
+			and CREATE_TIME=#{createTime}
+		</if>
+		<if test="createUserId!= null">
+			and CREATE_USER_ID=#{createUserId}
+		</if>
+		<if test="createNickname!= null">
+			and CREATE_NICKNAME=#{createNickname}
+		</if>
+		<if test="updateTime!= null">
+			and UPDATE_TIME=#{updateTime}
+		</if>
+		<if test="updateUserId!= null">
+			and UPDATE_USER_ID=#{updateUserId}
+		</if>
+		<if test="updateNickname!= null">
+			and UPDATE_NICKNAME=#{updateNickname}
+		</if>
+		<if test="status!= null">
+			and STATUS=#{status}
+		</if>
+
+	</sql>
+
+	<!-- 激活用户邮箱 -->
+	<update id="active" parameterType="UserEmail">
+		UPDATE user_email
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="emailStatus!=null">
+				EMAIL_STATUS=#{emailStatus},
+			</if>
+			<if test="status!=null">
+				STATUS=#{status}
+			</if>
+		</trim>
+		WHERE EMAIL_ID=#{emailId}
+	</update>
+
+	<!-- 更新新用户邮箱对应的userid -->
+	<update id="updateUserId" parameterType="UserEmail">
+		UPDATE user_email
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="userId!=null">
+				USER_ID=#{userId}
+			</if>
+		</trim>
+		WHERE EMAIL_ID=#{emailId}
+	</update>
+
+	<select id="isEmailExists" resultMap="defaultMap" parameterType="java.util.HashMap">
+		SELECT * FROM user_email
+		WHERE 1=1
+		<include refid="query" />
+	</select>
+	<select id="findUserEmailList" resultMap="defaultMap"
+		parameterType="java.util.HashMap">
+		SELECT
+		<include refid="all" />
+		FROM user_email WHERE 1=1
+		<include refid="query" />
+	</select>
+	<select id="findByEmailId" parameterType="java.util.HashMap"
+		resultMap="defaultMap">
+		SELECT
+		<include refid="all" />
+		FROM user_email WHERE 1=1
+		<include refid="query" />
+		<!-- 用户查询传过来的参数与之不符,先注释掉 and STATUS=#{status} -->
+		limit 1
+	</select>
+
+	<select id="getByEmail" parameterType="java.util.HashMap"
+		resultMap="defaultMap">
+		SELECT
+		<include refid="all" />
+		FROM user_email 1=1
+		<include refid="query" />  <!-- and STATUS=#{status} -->
+		limit 1
+	</select>
+
+	<select id="getUserEmailCount" parameterType="UserEmail"
+		resultType="java.lang.Long">
+		SELECT COUNT(EMAIL_ID) FROM user_email where 1=1 and
+		STATUS=#{status}
+	</select>
+
+</mapper>

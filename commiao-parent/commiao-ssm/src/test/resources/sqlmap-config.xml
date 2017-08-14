@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="logImpl" value="LOG4J"/>
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.components.file.domain.pojo.FileManager" alias="FileManager"/>
+		<typeAlias type="com.components.security.domain.model.TreeNode" alias="TreeNode"/>
+		<typeAlias type="com.components.security.domain.model.TreeGrid" alias="TreeGrid"/>
+		<typeAlias type="com.components.security.domain.pojo.Menu" alias="Menu"/>
+		<typeAlias type="com.components.security.domain.pojo.SysUser" alias="SysUser"/>
+		<typeAlias type="com.components.security.domain.pojo.Role" alias="Role"/>
+		<typeAlias type="com.components.security.domain.pojo.Org" alias="Org"/>
+		<typeAlias type="com.commiao.ssm.domain.DataColumn" alias="DataColumn"/>
+		<typeAlias type="com.commiao.ssm.domain.DataGroup" alias="DataGroup"/>
+		<typeAlias type="com.commiao.ssm.domain.DataGroupInfo" alias="DataGroupInfo"/>
+		<typeAlias type="com.commiao.ssm.domain.User" alias="User"/>
+    </typeAliases>
+	<mappers>
+		<mapper resource="sqlmap/FileManager-mapper.xml"/>
+		<mapper resource="sqlmap/Menu-mapper.xml"/>
+		<mapper resource="sqlmap/SysUser-mapper.xml"/>
+		<mapper resource="sqlmap/Role-mapper.xml"/>
+		<mapper resource="sqlmap/Org-mapper.xml"/>
+		<mapper resource="sqlmap/DataColumn-mapper.xml"/>
+		<mapper resource="sqlmap/DataGroup-mapper.xml"/>
+		<mapper resource="sqlmap/DataGroupInfo-mapper.xml"/>
+		<mapper resource="sqlmap/User-mapper.xml"/>
+	</mappers>
+</configuration>

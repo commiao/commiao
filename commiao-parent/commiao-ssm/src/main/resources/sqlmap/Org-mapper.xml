@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orgMapper">
+	
+	
+	<delete id="updateOUR" >
+      	delete  from components_security_org_role where id in (SELECT tempTor.id FROM
+		(SELECT tor.ID,tor.USER_ID,COUNT(*) roleCount ,tor.ROLE_ID from components_security_org_role tor where tor.ROLE_ID in 
+		
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+		
+		GROUP BY tor.USER_ID, tor.ROLE_ID) tempTor 
+		where 
+		tempTor.roleCount=1 )
+    </delete>
+	
+	
+	<delete id="updateURM" >
+      	delete tur.* from components_security_user_rela_menu tur ,
+		(SELECT tor.USER_ID,COUNT(*) roleCount ,tor.ROLE_ID from components_security_org_role tor where tor.ROLE_ID in 
+		
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+		
+		GROUP BY tor.USER_ID, tor.ROLE_ID) tempTor 
+		where 
+		tempTor.roleCount=1 and tur.USER_ID = tempTor.USER_ID and tur.ROLE_ID = tempTor.ROLE_ID
+    </delete>
+	
+	<select id="getOrgIds" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select distinct torr.org_id from components_security_org_rela_role torr where
+        role_id = #{roleid}
+    </select>
+	
+	<select id="getRMSysUserIds" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select distinct turm.user_id from components_security_user_rela_menu turm where
+        role_id = #{roleid}
+    </select>
+	
+	<select id="getOrgSysUserIds" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select distinct tor.user_id from components_security_org_role tor where
+        role_id = #{roleid}
+    </select>
+	
+	<insert id="saveOrgSysUsers" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into components_security_org_role (org_id,user_id)
+        values(#{orgId},#{userId})
+    </insert>
+	
+	<insert id="saveOrgRoles" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into components_security_org_rela_role (org_id,role_id)
+        values(#{orgId},#{roleId})
+    </insert>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="Org">
+        insert into components_security_org(NAME,PARENT_ID,CODE,ADDRESS,ORDERSN,STATUS,DESCRIPTION,ORG_TYPE,CREATOR,CREATE_TIME,WEBSITE_CODE)
+        values(#{name},#{parentId},#{code},#{address},#{ordersn},#{status},#{description},#{orgType},#{creator},SYSDATE(),#{websiteCode})
+    </insert>
+
+    <update id="update" parameterType="Org">
+        update components_security_org
+        set NAME=#{name},PARENT_ID = #{parentId},CODE=#{code},ADDRESS=#{address},ORDERSN=#{ordersn},STATUS=#{status},DESCRIPTION=#{description},ORG_TYPE=#{orgType},UPDATOR=#{updator},UPDATE_TIME=SYSDATE(),WEBSITE_CODE=#{websiteCode}
+        where id = #{id}
+    </update>
+    
+    <update id="updateOrgSysUser" parameterType="java.util.Map">
+        update components_security_org_role
+        set role_id = null
+        where user_id = #{userId} and org_id = #{orgId}
+    </update>
+    
+    
+    <select id="delete" resultMap="defaultMap">
+        delete from components_security_org where
+        id = #{id}
+    </select>
+    
+    <delete id="deleteOrgSysUser" parameterType="java.util.Map">
+        delete from components_security_org_role where org_id = #{orgId} and user_id = #{userId} 
+    </delete>
+    
+    <delete id="deleteURM" parameterType="java.lang.Long">
+        delete from components_security_user_rela_menu where user_id = #{userId} 
+    </delete>
+    
+    <delete id="deleteURMLink" parameterType="java.util.Map">
+        delete from components_security_user_rela_menu where role_id != #{otherorgroleid} and user_id = #{userId} 
+    </delete>
+    
+    <delete id="delURM" parameterType="java.util.Map">
+        delete  from components_security_user_rela_menu where id in 
+        	(SELECT mtable.id FROM 
+         		(select tur.id  from components_security_user_rela_menu  tur where tur.role_id  not in 
+         			(SELECT tor.ROLE_ID from components_security_org_role tor where tor.ORG_ID!=#{orgId} and tor.USER_ID=#{userId}) 
+         				and tur.USER_ID=#{userId}) mtable)
+    </delete>
+    
+    
+    <delete id="delORS" >
+        delete from components_security_org_rela_role where
+        org_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    
+    <delete id="delOURS" >
+        delete from components_security_org_role where
+        org_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    
+    <select id="deleteByIds" resultMap="defaultMap">
+        delete from components_security_org where
+        id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <delete id="deleteOrgRoles" parameterType="java.lang.Integer">
+        delete from components_security_org_rela_role where
+        org_id = #{orgId}
+    </delete>
+    <select id="getById" resultMap="defaultMap">
+        select <include refid="all"/> from components_security_org where id = #{id} limit 1
+    </select>
+    
+    <select id="getOrgCount" resultType="java.lang.Long" parameterType="Org">
+        select count(id) from components_security_org where 1=1 <include refid="query"/>
+    </select>
+    
+    <select id="getOtherOrg" resultType="java.lang.Long" parameterType="java.util.Map">
+        select distinct org_id from components_security_org_role where org_id != #{orgId} and user_id = #{userId}
+    </select>
+    
+    <select id="getRoleIds" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select distinct torr.role_id from components_security_org_rela_role torr where
+        org_id = #{orgId}
+    </select>
+    
+    <select id="getSysUserIds" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select distinct tor.user_id from components_security_org_role tor where
+        org_id = #{orgId}
+    </select>
+    
+    <select id="getMenuIds" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select distinct trrm.menu_id from components_security_role_rela_menu trrm where
+        role_id = #{roleid}
+    </select>
+    
+     <select id="getSysUserRoleMenu" resultType="java.lang.Long" parameterType="Org">
+        select count(id) from components_security_user_rela_menu where  user_id = #{userId} and role_id = #{roleId} and menu_id = #{menuId}
+    </select>
+    
+    
+    <update id="insertOrgSysUserRole" parameterType="java.util.Map" >
+        insert into components_security_org_role (user_id,org_id,role_id)
+        values(#{userId},#{orgId},#{roleId})
+    </update>
+    
+    
+    <insert id="insertSysUserRoleMenu" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into components_security_user_rela_menu (user_id,role_id,menu_id)
+        values(#{userId},#{roleId},#{menuId})
+    </insert>
+    
+    <delete id="deleteOrgSysUserRole" parameterType="java.util.Map">
+        delete from components_security_org_role where
+        user_id = #{userId} and org_id = #{orgId}
+    </delete>
+    
+    <delete id="deleteSysUserRoleMenu" parameterType="java.util.Map">
+        delete from components_security_user_rela_menu where
+        user_id = #{userId} and role_id = #{roleId} and menu_id = #{menuId}
+    </delete>
+    
+    <select id="getOrgSysUsers" parameterType="int" resultMap="userMap">
+        select * from components_security_user where id in (select user_id from components_security_org_role where org_id = #{orgId})
+    </select>
+    
+    <select id="getAbsentOrgSysUsers" parameterType="int" resultMap="userMap">
+        select * from components_security_user where id not in (select user_id from components_security_org_role where org_id = #{orgId})
+    </select>
+    
+    <resultMap type="SysUser" id="userMap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="login_name" property="loginName"/>
+        <result column="real_name" property="realName"/>
+        <result column="login_password" property="loginPassword"/>
+        <result column="user_type" property="userType"/>
+    </resultMap>
+    <!-- <select id="findOrgs" resultMap="defaultMap" parameterType="Org">
+        select  <include refid="all"/> from components_security_org where 1=1 <include refid="query"/>
+        limit #{startRows},#{endRows}
+    </select> -->
+    
+    <resultMap type="Org" id="defaultMap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_Id" property="parentId"/>
+        <result column="code" property="code"/>
+        <result column="address" property="address"/>
+        <result column="ordersn" property="ordersn"/>
+        <result column="status" property="status"/>
+        <result column="description" property="description"/>
+        <result column="org_type" property="orgType"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="updator" property="updator"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="website_code" property="websiteCode"/>
+    </resultMap>
+
+    <sql id="all">
+        id,name,parent_id,code,address,ordersn,status,description,org_type,creator,create_time,updator,update_time,website_code
+    </sql>
+    <sql id="query">
+        <if test="name != null">
+            AND name LIKE BINARY concat('%', #{name} ,'%')
+        </if>
+    </sql>
+    
+    <select id="findOrgsTreeGrid" resultMap="orgsTreeGrid" parameterType="int">
+     SELECT org.* FROM components_security_org org  WHERE org.parent_id = #{id}
+    </select>
+    
+     <resultMap type="Org" id="orgsTreeGrid">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_Id" property="parentId"/>
+        <result column="code" property="code"/>
+        <result column="address" property="address"/>
+        <result column="ordersn" property="ordersn"/>
+        <result column="status" property="status"/>
+        <result column="description" property="description"/>
+        <result column="org_type" property="orgType"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="updator" property="updator"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="website_code" property="websiteCode"/>
+        <collection property="children" column="id" select="findOrgsTreeGrid"/>
+    </resultMap>
+    
+    
+    
+    
+    <!-- getOrgTreeNode（组织机构下拉树） -->
+    <resultMap type="TreeNode" id="allTreeNodeMap">
+	<id column="id" property="id"/>
+	<result column="name" property="text"/>
+	<collection property="children" column="id" select="getOrgTreeNode"/>
+	</resultMap>
+	 
+	<select id="getOrgTreeNode" parameterType="int" resultMap="allTreeNodeMap">
+	SELECT org.* FROM components_security_org org WHERE org.parent_id = #{id}
+	</select>
+	
+	
+	<!-- getOrgRoleNode（组织机构角色下拉树） -->
+    <resultMap type="TreeNode" id="allOrgRoleNodeMap">
+	<id column="id" property="id"/>
+	<result column="name" property="text"/>
+	</resultMap>
+	 
+	<select id="getOrgRoleNode" parameterType="int" resultMap="allOrgRoleNodeMap">
+	SELECT role.* FROM components_security_roles role WHERE role.id in (select role_id from components_security_org_rela_role where org_id = #{orgid}) 
+	</select>
+	
+</mapper>

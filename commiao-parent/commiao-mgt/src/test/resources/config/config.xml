@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config [
+	<!ELEMENT config (package*)>
+	<!ELEMENT package (property*)>
+	<!ELEMENT property (#PCDATA)>
+	<!ATTLIST package name ID #REQUIRED>
+	<!ATTLIST property name CDATA #REQUIRED>
+]>
+
+<config>
+	<package name="login_url">
+		<property name="web_login_url">player/login</property>
+		<property name="back_login_url">top/logout</property>
+	</package>
+    <package name="mail">
+		<property name="MAIL_PORT">25</property>
+      	<property name="MAIL_SERVER">smtp.exmail.qq.com</property>
+        <property name="MAIL_FROM">jingmiao@commiao.com</property>
+        <property name="MAIL_USER">jingmiao@commiao.com</property>
+        <property name="MAIL_PASSWORD">Jm189925894#</property>
+        <property name="MAIL_INTERVAL">1000</property>
+        <property name="MAIL_MAX_SEND_COUNT">3</property>
+        <property name="MAIL_TLS">false</property>
+        <property name="errorTo">jing.miao@huixinjinan.com</property>
+        <property name="errorCc">jing.miao@huixinjinan.com,jingmiao@commiao.com</property>
+   	</package>
+</config>
+
+

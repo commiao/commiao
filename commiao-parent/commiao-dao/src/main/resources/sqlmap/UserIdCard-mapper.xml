@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userIdCardMapper">
+	<resultMap type="UserIdCard" id="IdCardMap">
+		<id column="ID_CARD_ID" property="idCardId" />
+		<result column="REAL_NAME" property="realName" />
+		<result column="CARD_NUMBER" property="cardNumber" />
+		<result column="ID_CARD_STATUS" property="idCardStatus" />
+		<result column="FILE_ID" property="fileId" />
+		<result column="USER_ID" property="userId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_USER_ID" property="createUserId" />
+		<result column="CREATE_NICKNAME" property="createNickname" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATE_USER_ID" property="updateUserId" />
+		<result column="UPDATE_NICKNAME" property="updateNickname" />
+		<result column="STATUS" property="status" />
+
+	</resultMap>
+	<insert id="insert" parameterType="UserIdCard" keyProperty="idCardId" useGeneratedKeys="true">
+		insert into user_id_card (REAL_NAME,CARD_NUMBER,ID_CARD_STATUS,FILE_ID,USER_ID,CREATE_TIME,CREATE_USER_ID,CREATE_NICKNAME,UPDATE_TIME,UPDATE_USER_ID,UPDATE_NICKNAME,STATUS)
+		values(#{realName},#{cardNumber},#{idCardStatus},#{fileId},#{userId},#{createTime},#{createUserId},#{createNickname},#{updateTime},#{updateUserId},#{updateNickname},#{status});
+	</insert>
+	<update id="update" parameterType="UserIdCard">
+		UPDATE user_id_card
+		<trim prefix="SET" suffixOverrides=",">
+		<if test="realName!= null">
+			 REAL_NAME=#{realName},
+		</if>
+		<if test="cardNumber!= null">
+			 CARD_NUMBER=#{cardNumber},
+		</if>
+		<if test="idCardStatus!= null">
+			 ID_CARD_STATUS=#{idCardStatus},
+		</if>
+		<if test="fileId!= null">
+			 FILE_ID=#{fileId},
+		</if>
+		<if test="userId!= null">
+			 USER_ID=#{userId},
+		</if>
+		<if test="createTime!= null">
+			 CREATE_TIME=#{createTime},
+		</if>
+		<if test="createUserId!= null">
+			 CREATE_USER_ID=#{createUserId},
+		</if>
+		<if test="createNickname!= null">
+			 CREATE_NICKNAME=#{createNickname},
+		</if>
+		<if test="updateTime!= null">
+			 UPDATE_TIME=#{updateTime},
+		</if>
+		<if test="updateUserId!= null">
+			 UPDATE_USER_ID=#{updateUserId},
+		</if>
+		<if test="updateNickname!= null">
+			 UPDATE_NICKNAME=#{updateNickname},
+		</if>
+		<if test="status!= null">
+			 STATUS=#{status}
+		</if>
+		</trim>
+		WHERE ID_CARD_ID=#{idCardId};
+	</update>
+	<delete id="delete" parameterType="UserIdCard">
+		DELETE FROM user_id_card WHERE
+		ID_CARD_ID=#{idCardId}
+	</delete>
+	<delete id="deleteById" parameterType="java.lang.Long">
+		DELETE FROM user_id_card WHERE
+		ID_CARD_ID=#{idCardId}
+	</delete>
+	<select id="getById" parameterType="java.util.HashMap" resultMap="IdCardMap">
+		SELECT
+		<include refid="all" />
+		FROM user_id_card where  ID_CARD_ID=#{idCardId} and STATUS=#{status} limit 1
+	</select>
+	<select id="findAll" resultMap="IdCardMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from user_id_card where STATUS=#{status}
+		<include refid="query" />
+	</select>
+	
+	<select id="getCount" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(ID_CARD_ID) from user_id_card where STATUS=#{status}
+		<include refid="query" />
+	</select>
+	<select id="getOne" resultMap="IdCardMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from user_id_card where STATUS=#{status} 
+		<include refid="query" />
+	</select>	
+	<select id="findUserIdCardList" resultMap="IdCardMap"
+		parameterType="UserIdCard">
+		SELECT
+		<include refid="all" />
+		FROM user_id_card WHERE 1=1<include refid="query"/>
+	</select>
+	<select id="findUserIdCardById" parameterType="java.util.HashMap"
+		resultMap="IdCardMap">
+		SELECT
+		<include refid="all" />
+		FROM user_id_card WHERE 1=1<include refid="query"/> <!-- and STATUS=#{status} -->
+	</select>
+	<select id="findUserIdCardCount" resultType="java.lang.Long"
+		parameterType="UserIdCard">
+		SELECT COUNT(ID_CARD_ID) FROM user_id_card WHERE STATUS=#{status}
+	</select>
+	<sql id="all">
+		ID_CARD_ID, REAL_NAME, CARD_NUMBER, ID_CARD_STATUS,
+		FILE_ID, USER_ID,
+		CREATE_TIME, CREATE_USER_ID, CREATE_NICKNAME,
+		UPDATE_TIME,
+		UPDATE_USER_ID, UPDATE_NICKNAME, STATUS
+	</sql>
+	<sql id="query">
+		<if test="idCardId!= null">
+			and ID_CARD_ID=#{idCardId}
+		</if>
+		<if test="realName!= null">
+			and REAL_NAME=#{realName}
+		</if>
+		<if test="cardNumber!= null">
+			and CARD_NUMBER=#{cardNumber}
+		</if>
+		<if test="idCardStatus!= null">
+			and ID_CARD_STATUS=#{idCardStatus}
+		</if>
+		<if test="fileId!= null">
+			and FILE_ID=#{fileId}
+		</if>
+		<if test="userId!= null">
+			and USER_ID=#{userId}
+		</if>
+		<if test="createTime!= null">
+			and CREATE_TIME=#{createTime}
+		</if>
+		<if test="createUserId!= null">
+			and CREATE_USER_ID=#{createUserId}
+		</if>
+		<if test="createNickname!= null">
+			and CREATE_NICKNAME=#{createNickname}
+		</if>
+		<if test="updateTime!= null">
+			and UPDATE_TIME=#{updateTime}
+		</if>
+		<if test="updateUserId!= null">
+			and UPDATE_USER_ID=#{updateUserId}
+		</if>
+		<if test="updateNickname!= null">
+			and UPDATE_NICKNAME=#{updateNickname}
+		</if>
+		<if test="status!= null">
+			and STATUS=#{status}
+		</if>
+		</sql>
+</mapper>

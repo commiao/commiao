@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMobileMapper">
+	<resultMap type="UserMobile" id="defaultMap">
+		<id column="MOBILE_ID" property="mobileId" />
+		<result column="MOBILE_PHONE" property="mobilePhone" />
+		<result column="ACTIVE_CODE" property="activeCode" />
+		<result column="MOBILE_STATUS" property="mobileStatus" />
+		<result column="USER_ID" property="userId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_USER_ID" property="createUserId" />
+		<result column="CREATE_NICKNAME" property="createNickname" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATE_USER_ID" property="updateUserId" />
+		<result column="UPDATE_NICKNAME" property="updateNickname" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+	<insert id="insert" parameterType="UserMobile" keyProperty="mobileId"
+		useGeneratedKeys="true">
+		INSERT INTO user_mobile (MOBILE_PHONE, ACTIVE_CODE,
+		MOBILE_STATUS, USER_ID,
+		CREATE_TIME, CREATE_USER_ID, CREATE_NICKNAME,
+		STATUS)
+		VALUES(#{mobilePhone},#{activeCode},#{mobileStatus},#{userId},#{createTime},#{createUserId},#{createNickname},#{status});
+	</insert>
+	<update id="update" parameterType="java.util.HashMap">
+		UPDATE user_mobile
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="mobilePhone!=null">
+				MOBILE_PHONE=#{mobilePhone},<!-- 手机号码 -->
+			</if>
+			<if test="activeCode!=null">
+				ACTIVE_CODE=#{activeCode},<!-- 验证码 -->
+			</if>
+			<if test="mobileStatus!=null">
+				MOBILE_STATUS=#{mobileStatus},<!-- 是否已绑定 -->
+			</if>
+			<if test="userId!=null">
+				USER_ID=#{userId},<!-- 用户id -->
+			</if>
+			<if test="updateTime!=null">
+				UPDATE_TIME=#{updateTime},<!-- 更新时间 -->
+			</if>
+			<if test="updateUserId!=null">
+				UPDATE_USER_ID=#{updateUserId},<!-- 更新人id -->
+			</if>
+			<if test="updateNickname!=null">
+				UPDATE_NICKNAME=#{updateNickname},<!-- 更新人昵称 -->
+			</if>
+			<if test="status!=null">
+				STATUS=#{status}
+			</if>
+			</trim>
+			WHERE MOBILE_ID=#{mobileId};
+		
+	</update>
+	<delete id="delete" parameterType="UserMobile">
+		delete from user_mobile where MOBILE_ID=#{mobileId}
+	</delete>
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from user_mobile where MOBILE_ID = #{id}
+	</delete>
+
+	<select id="getById" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from user_mobile where MOBILE_ID = #{id} and STATUS=#{status}
+	</select>
+	<select id="findAll" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from user_mobile where STATUS=#{status}
+		<include refid="query" />
+	</select>
+	
+	<select id="getCount" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(MOBILE_ID) from user_mobile where STATUS=#{status}
+		<include refid="query" />
+	</select>
+	<select id="getOne" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from user_mobile where STATUS=#{status}
+		<include refid="query" />
+	</select>
+	<!-- 根据验证码和手机号查询 -->
+	<select id="getByPA" resultMap="defaultMap"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="all" />
+		FROM user_mobile WHERE  MOBILE_PHONE=#{mobilePhone} and ACTIVE_CODE=#{activeCode} limit 1
+	</select>
+
+	<sql id="all">
+		MOBILE_ID,MOBILE_PHONE, ACTIVE_CODE, MOBILE_STATUS, USER_ID, CREATE_TIME, CREATE_USER_ID,
+		CREATE_NICKNAME,UPDATE_TIME, UPDATE_USER_ID, UPDATE_NICKNAME,STATUS
+	</sql>
+	
+	<sql id="query">
+		<if test="mobileId!= null">
+			AND MOBILE_ID = #{mobileId}<!-- 主键id -->
+		</if>
+		<if test="mobilePhone!=null">
+			AND MOBILE_PHONE=#{mobilePhone}<!-- 手机号码 -->
+		</if>
+		<if test="activeCode!=null">
+			AND ACTIVE_CODE=#{activeCode}<!-- 验证码 -->
+		</if>
+		<if test="mobileStatus!=null">
+			AND MOBILE_STATUS=#{mobileStatus}<!-- 是否已绑定 -->
+		</if>
+		<if test="userId!=null">
+			AND USER_ID=#{userId}<!-- 用户id -->
+		</if>
+		<if test="updateTime!=null">
+			AND UPDATE_TIME=#{updateTime}<!-- 更新时间 -->
+		</if>
+		<if test="updateUserId!=null">
+			AND UPDATE_USER_ID=#{updateUserId}<!-- 更新人id -->
+		</if>
+		<if test="updateNickname!=null">
+			AND UPDATE_NICKNAME=#{updateNickname}<!-- 更新人昵称 -->
+		</if>
+		<if test="createTime!= null">
+			AND CREATE_TIME=#{createTime}
+		</if>
+		<if test="createUserId!= null">
+			AND CREATE_USER_ID=#{createUserId}
+		</if>
+		<if test="createNickname!= null">
+			AND CREATE_NICKNAME=#{createNickname}
+		</if>	
+	</sql>	
+</mapper>

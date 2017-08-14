@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menuMapper">
+
+	<!-- 添加菜单 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="Menu">
+        insert into components_security_menus(TITLE,URL,CODE,ORDERSN,PARENT_ID,MENU_LEVEL,DESCRIPTION,STATUS,CREATOR,CREATE_TIME)
+        values(#{title},#{url},#{code},#{ordersn},#{parentId},#{menuLevel},#{description},#{status},#{creator},SYSDATE())
+    </insert>
+
+	<!-- 更新菜单 -->
+    <update id="update" parameterType="Menu">
+        update components_security_menus
+        set TITLE=#{title},URL = #{url},CODE = #{code},ORDERSN = #{ordersn},PARENT_ID = #{parentId},MENU_LEVEL = #{menuLevel},DESCRIPTION = #{description},STATUS = #{status},UPDATOR = #{updator},UPDATE_TIME = SYSDATE()
+        where id = #{id}
+    </update>
+    
+    <!-- 删除菜单 -->
+    <select id="delete" resultMap="defaultMap">
+        delete from components_security_menus where
+        id = #{id}
+    </select>
+    
+    <!-- 批量删除菜单 -->
+    <select id="deleteByIds" resultMap="defaultMap">
+        delete from components_security_menus where
+        id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    
+    <!-- 删除角色与菜单关系 -->
+    <select id="deleteRoleMenu" resultMap="defaultMap">
+        delete from components_security_role_rela_menu where
+        menu_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    
+    <!-- 删除菜单时把用户权限表中相关数据删除 -->
+    <select id="deleteUserRoleMenu" resultMap="defaultMap">
+        delete from components_security_user_rela_menu where
+        menu_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    
+    <!-- 查询单个菜单 -->
+    <select id="getById" resultMap="defaultMap">
+        select <include refid="all"/> from components_security_menus where id = #{id} limit 1
+    </select>
+    
+    <!-- 获取查询菜单数量 -->
+    <select id="getMenuCount" resultType="java.lang.Long" parameterType="Menu">
+        select count(id) from components_security_menus where 1=1 <include refid="query"/>
+    </select>
+    
+    <!-- 获取查询菜单列表 -->
+    <select id="findMenus" resultMap="defaultMap" parameterType="Menu">
+        select  <include refid="all"/> from components_security_menus where 1=1 <include refid="query"/>
+        limit #{startRows},#{endRows}
+    </select>
+    
+    <!-- 数据库映射实体类 -->
+    <resultMap type="Menu" id="defaultMap">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="url" property="url"/>
+        <result column="code" property="code"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="menu_level" property="menuLevel"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+    </resultMap>
+    
+    <sql id="all">
+        id,title,url,code,ordersn,parent_id,menu_level,description,status,creator,create_time,updator,update_time
+    </sql>
+    <sql id="query">
+        <if test="title != null">
+            AND title LIKE BINARY concat('%', #{title} ,'%')
+        </if>
+    </sql>
+    
+    
+    
+    <!-- 系统菜单树映射） -->
+    <resultMap type="TreeNode" id="allTreeNodeMap">
+		<id column="id" property="id"/>
+		<result column="title" property="text"/>
+		<result column="url" property="url"/>
+		<collection property="children" column="id" select="getAllTreeNode"/>
+	</resultMap>
+	 
+	<!-- 系统菜单树 --> 
+	<select id="getAllTreeNode" parameterType="int" resultMap="allTreeNodeMap">
+	SELECT menu.* FROM components_security_menus menu WHERE menu.parent_id = #{id}
+	</select>
+ 
+ 
+ 	<!-- 获得菜单treegrid -->
+ 	<select id="findMenusTreeGrid" resultMap="treeGridMap" parameterType="int">
+       SELECT 
+		menu.*
+		FROM components_security_menus menu 
+		WHERE menu.parent_id = #{id}
+    </select>
+    
+    <!-- 查询菜单treegrid时数据库映射实体类 -->
+    <resultMap type="TreeGrid" id="treeGridMap">
+        <id column="id" property="id"/>
+        <result column="title" property="name"/>
+        <result column="url" property="url"/>
+        <result column="code" property="code"/>
+        <result column="menu_Level" property="menuLevel"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="parent_id" property="parentId"/>
+    <collection property="children" column="id" select="findMenusTreeGrid"/>
+    </resultMap>
+    
+    
+    <!-- 角色对应的菜单映射 -->
+    <resultMap type="TreeNode" id="roleMenuResultMap">
+		<id column="id" property="id"/>
+		<result column="title" property="text"/>
+		<result column="url" property="url"/>
+		<result column="ischecked" property="ischecked"/>
+		<collection property="children" column="{parentid=id,roleid=roleid}" select="getRoleMenu"/>
+	</resultMap>
+	 
+	<!-- 查询角色匹配菜单时的树 --> 
+	<select id="getRoleMenu" parameterType="java.util.HashMap" resultMap="roleMenuResultMap">
+		select DISTINCT m.*,IFNULL(rm.ROLE_ID,'0') ischecked,r.id roleid 
+		from components_security_menus m LEFT JOIN components_security_role_rela_menu rm on
+		(m.ID=rm.MENU_ID and rm.role_id = #{roleid}) 
+	     left join components_security_roles r on r.id =#{roleid}  WHERE m.parent_id = #{parentid}
+	</select>
+</mapper>

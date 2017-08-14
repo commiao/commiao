@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userHeadPicMapper">
+	<resultMap type="UserHeadPic" id="defaultMap">
+		<id column="HEAD_PIC_ID" property="headPicId" />
+		<result column="HEAD_PIC_ID" property="headPicId" />
+		<result column="TITLE" property="title" />
+		<result column="FILE_ID" property="fileId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_USER_ID" property="createUserId" />
+		<result column="CREATE_NICKNAME" property="createnNickName" />
+		<result column="STATUS" property="status" />
+
+	</resultMap>
+	<insert id="insert" parameterType="UserHeadPic" keyProperty="headPicId"
+		useGeneratedKeys="true">
+		insert into user_head_pic
+		(TITLE,FILE_ID,CREATE_TIME,CREATE_USER_ID,CREATE_NICKNAME,STATUS)
+		values(#{title},#{fileId},#{createTime},#{createUserId},#{createNickname},#{status});
+	</insert>
+	<update id="update" parameterType="UserHeadPic">
+		update user_head_pic
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="title!=null">
+				TITLE=#{title},
+			</if>
+			<if test="fileId!=null">
+				FILE_ID=#{fileId},
+			</if>
+			<if test="createTime!=null">
+				CREATE_TIME=#{createTime},
+			</if>
+			<if test="createUserId!=null">
+				CREATE_USER_ID=#{createUserId},
+			</if>
+			<if test="createNickname!=null">
+				CREATE_NICKNAME=#{createNickname},
+			</if>
+			<if test="status!=null">
+				STATUS=#{status}
+			</if>
+
+		</trim>
+		where HEAD_PIC_ID=#{headPicId};
+
+	</update>
+	<delete id="delete" parameterType="UserHeadPic">
+		delete from user_head_pic
+		where HEAD_PIC_ID=#{headPicId}
+	</delete>
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from user_head_pic
+		where HEAD_PIC_ID = #{id}
+	</delete>
+
+	<select id="getById" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from user_head_pic where HEAD_PIC_ID = #{id} and STATUS=#{status}
+		limit 1
+	</select>
+
+	<select id="findAll" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from user_head_pic where STATUS=#{status}
+		<include refid="query" />
+	</select>
+
+	<select id="getCount" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(HEAD_PIC_ID) from user_head_pic where STATUS=#{status}
+		<include refid="query" />
+	</select>
+	<select id="getOne" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from user_head_pic where STATUS=#{status}
+		<include refid="query" />
+	</select>
+	<sql id="all">
+		HEAD_PIC_ID,TITLE,FILE_ID,CREATE_TIME,CREATE_USER_ID,CREATE_NICKNAME,STATUS
+	</sql>
+
+	<sql id="query">
+		<if test="headPicId!= null">
+			and HEAD_PIC_ID=#{headPicId}
+		</if>
+		<if test="title!= null">
+			and TITLE=#{title}
+		</if>
+		<if test="fileId!= null">
+			and FILE_ID=#{fileId}
+		</if>
+		<if test="createTime!= null">
+			and CREATE_TIME=#{createTime}
+		</if>
+		<if test="createUserId!= null">
+			and CREATE_USER_ID=#{createUserId}
+		</if>
+		<if test="createNickname!= null">
+			and CREATE_NICKNAME=#{createNickname}
+		</if>
+		<if test="status!= null">
+			and STATUS=#{status}
+		</if>
+
+	</sql>
+	<select id="findUserHeadPicList" resultMap="defaultMap"
+		parameterType="UserHeadPic">
+		SELECT
+		<include refid="all" />
+		FROM user_head_pic WHERE 1=1
+		<include refid="query" />
+	</select>
+	<select id="findUserHeadPicById" resultMap="defaultMap"
+		parameterType="java.util.HashMap">
+		SELECT
+		<include refid="all" />
+		FROM user_head_pic WHERE 1=1
+		<include refid="query" />
+	</select>
+	<select id="findUserHeadPicCount" resultType="java.lang.Long"
+		parameterType="UserHeadPic">
+		SELECT COUNT(HEAD_PIC_ID) FROM user_head_pic WHERE
+		STATUS=#{status}
+	</select>
+
+</mapper>

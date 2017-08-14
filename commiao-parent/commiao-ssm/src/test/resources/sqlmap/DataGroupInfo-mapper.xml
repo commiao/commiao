@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dataGroupInfoMapper" >
+  <resultMap id="defaultMap" type="DataGroupInfo" >
+    <id column="GROUP_INFO_ID" property="id" jdbcType="BIGINT" />
+    <result column="GROUP_ID" property="groupId" jdbcType="BIGINT" />
+    <result column="RATIO_Y" property="ratioY" jdbcType="INTEGER" />
+    <result column="RATIO_N" property="ratioN" jdbcType="INTEGER" />
+  </resultMap>
+  	<sql id="all">
+		GROUP_INFO_ID,GROUP_ID,RATIO_Y,RATIO_N
+	</sql>
+	<sql id="query">1=1 
+		<if test="id!= null">
+			and GROUP_INFO_ID=#{id}
+		</if>
+		<if test="groupId!= null">
+			and GROUP_ID=#{groupId}
+		</if>
+		<if test="ratioY!= null">
+			and RATIO_Y=#{ratioY}
+		</if>
+		<if test="ratioN!= null">
+			and RATIO_N=#{ratioN}
+		</if>
+	</sql>
+  	<insert id="insert" parameterType="DataGroupInfo" keyProperty="id" useGeneratedKeys="true">
+		insert into DATA_GROUP_INFO
+		(GROUP_ID,RATIO_Y,RATIO_N)
+		values(#{groupId},#{countData},#{ratioY},#{ratioN};
+	</insert>
+	<update id="update" parameterType="DataGroupInfo">
+		update DATA_GROUP_INFO
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="groupId!=null">
+				GROUP_ID=#{groupId},
+			</if>
+			<if test="ratioY!=null">
+				RATIO_Y=#{ratioY},
+			</if>
+			<if test="ratioN!=null">
+				RATIO_N=#{ratioN},
+			</if>
+		</trim>
+		where GROUP_INFO_ID=#{id};
+	</update>
+	<delete id="delete" parameterType="DataGroupInfo">
+		delete from DATA_GROUP_INFO where GROUP_INFO_ID=#{id}
+	</delete>
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from DATA_GROUP_INFO where GROUP_INFO_ID = #{id}
+	</delete>
+	<select id="getById" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select <include refid="all" /> from DATA_GROUP_INFO where GROUP_INFO_ID = #{id}
+	</select>
+	<select id="findAll" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select <include refid="all" /> from DATA_GROUP_INFO where <include refid="query" />
+	</select>
+	<select id="getCount" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(GROUP_INFO_ID) from DATA_GROUP_INFO where <include refid="query" />
+	</select>
+	<select id="getOne" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select <include refid="all" /> from DATA_GROUP_INFO where <include refid="query" />
+	</select>
+</mapper>

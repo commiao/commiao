@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMapper">
+	<insert id="insert" parameterType="User" keyProperty="userId" useGeneratedKeys="true">
+		insert into commiao_user_main (NICKNAME,PASSWORD,MOBILE_ID,MOBILE,EMAIL_ID,EMAIL,ID_CARD_ID,REAL_NAME,CARD_NUMBER,HEAD_PIC_ID,USER_STATUS,CREATE_TIME,CREATE_USER_ID,CREATE_NICKNAME,UPDATE_TIME,UPDATE_USER_ID,UPDATE_NICKNAME,STATUS)
+		values(#{nickname},#{password},#{userMobile.mobileId},#{userMobile.mobilePhone},#{userEmail.emailId},#{userEmail.email},#{userIdCard.idCardId},#{realName},#{cardNumber},#{userHeadPic.headPicId},#{userStatus},#{createTime},#{createUserId},#{createNickname},#{updateTime},#{updateUserId},#{updateNickname},#{status});
+	</insert>
+
+	<update id="update" parameterType="User">
+		update commiao_user_main
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="nickname!=null">
+				NICKNAME=#{nickname},
+			</if>
+			<if test="password!=null">
+				PASSWORD=#{password},
+			</if>
+			<if test="userMobile!=null">
+				<if test="userMobile.mobileId!=null">
+					MOBILE_ID=#{userMobile.mobileId},
+				</if>
+				<if test="userMobile.mobilePhone!=null">
+					MOBILE=#{userMobile.mobilePhone},
+				</if>
+			</if>
+			<if test="userEmail!=null">	
+				<if test="userEmail.emailId!=null">
+					EMAIL_ID=#{userEmail.emailId},
+				</if>
+				<if test="userEmail.email!=null">
+					EMAIL=#{userEmail.email},
+				</if>
+			</if>
+			<if test="userIdCard!=null">
+				<if test="userIdCard.idCardId!=null">
+					ID_CARD_ID=#{userIdCard.idCardId},
+				</if>
+			</if>
+			<if test="realName!=null">
+				REAL_NAME=#{realName},
+			</if>
+			<if test="cardNumber!=null">
+				CARD_NUMBER=#{cardNumber},
+			</if>
+			<if test="userHeadPic!=null">
+				<if test="userHeadPic.headPicId!=null">
+					HEAD_PIC_ID=#{userHeadPic.headPicId},
+				</if>
+			</if>
+			<if test="userStatus!=null">
+				USER_STATUS=#{userStatus},
+			</if>
+			<if test="createTime!=null">
+				CREATE_TIME=#{createTime},
+			</if>
+			<if test="createUserId!=null">
+				CREATE_USER_ID=#{createUserId},
+			</if>
+			<if test="createNickname!=null">
+				CREATE_NICKNAME=#{createNickname},
+			</if>
+			<if test="updateTime!=null">
+				UPDATE_TIME=#{updateTime},
+			</if>
+			<if test="updateUserId!=null">
+				UPDATE_USER_ID=#{updateUserId},
+			</if>
+			<if test="updateNickname!=null">
+				UPDATE_NICKNAME=#{updateNickname},
+			</if>
+			<if test="status!=null">
+				STATUS=#{status}
+			</if>
+
+			</trim>
+			where USER_ID=#{userId};
+		
+	</update>
+	<delete id="delete" parameterType="User">
+		delete from commiao_user_main where USER_ID=#{userId}
+	</delete>
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from commiao_user_main where USER_ID = #{id}
+	</delete>
+
+	<select id="getById" resultMap="fullMatchMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from commiao_user_main where USER_ID = #{id} and STATUS=#{status} limit 1
+	</select>
+
+	<select id="findAll" resultMap="fullMatchMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from commiao_user_main where 1=1
+		<include refid="query" />
+		<include refid="page" />
+	</select>
+	
+	<select id="getCount" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(USER_ID) from commiao_user_main where 1=1
+		<include refid="query" />
+	</select>
+	<select id="getOne" resultMap="fullMatchMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from commiao_user_main where 1=1
+		<include refid="query" />
+	</select>
+	
+	<resultMap type="User" id="defaultMap">
+		<id column="USER_ID" property="userId" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="PASSWORD" property="password" />
+		<result column="MOBILE" property="mobile" />
+		<result column="EMAIL" property="email" />
+		<result column="REAL_NAME" property="realName" />
+		<result column="CARD_NUMBER" property="cardNumber" />
+		<result column="USER_STATUS" property="userStatus" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_USER_ID" property="createUserId" />
+		<result column="CREATE_NICKNAME" property="createNickname" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATE_USER_ID" property="updateUserId" />
+		<result column="UPDATE_NICKNAME" property="updateNickname" />
+		<result column="STATUS" property="status" />
+		<!-- 一对一自动关联表:邮箱绑定表 -->
+		<association property="userEmail" javaType="UserEmail">
+			<id column="EMAIL_ID" property="emailId" />
+		</association>
+		<!-- 一对一自动关联:用户头像表 -->
+		<association property="userHeadPic" javaType="UserHeadPic">
+			<id column="HEAD_PIC_ID" property="headPicId" />
+		</association>
+		<!-- 一对一自动关联:身份证绑定表 -->
+		<association property="userIdCard" javaType="UserIdCard">
+			<id column="ID_CARD_ID" property="idCardId" />
+		</association>
+		<!-- 一对一自动关联:手机绑定表 -->
+		<association property="userMobile" javaType="UserMobile">
+			<id column="MOBILE_ID" property="mobileId" />
+		</association>
+	</resultMap>
+	
+    <resultMap type="User" id="fullMatchMap">
+		<id column="USER_ID" property="userId" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="PASSWORD" property="password" />
+		<result column="MOBILE" property="mobile" />
+		<result column="EMAIL" property="email" />
+		<result column="REAL_NAME" property="realName" />
+		<result column="CARD_NUMBER" property="cardNumber" />
+		<result column="USER_STATUS" property="userStatus" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_USER_ID" property="createUserId" />
+		<result column="CREATE_NICKNAME" property="createNickname" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATE_USER_ID" property="updateUserId" />
+		<result column="UPDATE_NICKNAME" property="updateNickname" />
+		<result column="STATUS" property="status" />
+
+		<!-- 一对一自动关联表:邮箱绑定表 -->
+		<association property="userEmail" column="EMAIL_ID" javaType="UserEmail">
+			<id column="ue_emailId" property="emailId" />
+			<result column="ue_email" property="email" />
+			<result column="ue_activeCode" property="activeCode" />
+			<result column="ue_emailStatus" property="emailStatus" />
+			<result column="ue_userId" property="userId" />
+			<result column="ue_createTime" property="createTime" />
+			<result column="ue_createUserId" property="createUserId" />
+			<result column="ue_createNickname" property="createNickname" />
+			<result column="ue_updateTime" property="updateTime" />
+			<result column="ue_updateUserId" property="updateUserId" />
+			<result column="ue_updateNickname" property="updateNickname" />
+			<result column="ue_status" property="status" />
+		</association>
+		<!-- 一对一自动关联:用户头像表 -->
+		<association property="userHeadPic" column="HEAD_PIC_ID" javaType="UserHeadPic">
+			<id column="p_headPicId" property="headPicId" />
+			<result column="p_title" property="title" />
+			<result column="p_fileId" property="fileId" />
+			<result column="p_createTime" property="createTime" />
+			<result column="p_createUserId" property="createUserId" />
+			<result column="p_createNickName" property="createnNickName" />
+			<result column="p_status" property="status" />
+		</association>
+		<!-- 一对一自动关联:身份证绑定表 -->
+		<association property="userIdCard" column="ID_CARD_ID" javaType="UserIdCard">
+			<id column="c_idCardId" property="idCardId" />
+			<result column="c_realName" property="realName" />
+			<result column="c_cardNumber" property="cardNumber" />
+			<result column="c_idCardStatus" property="idCardStatus" />
+			<result column="c_fileId" property="fileId" />
+			<result column="c_userId" property="userId" />
+			<result column="c_createTime" property="createTime" />
+			<result column="c_createUserId" property="createUserId" />
+			<result column="c_createNickname" property="createNickname" />
+			<result column="c_updateTime" property="updateTime" />
+			<result column="c_updateUserId" property="updateUserId" />
+			<result column="c_updateNickname" property="updateNickname" />
+			<result column="c_status" property="status" />
+		</association>
+		<!-- 一对一自动关联:手机绑定表 -->
+		<association property="userMobile" column="MOBILE_ID" javaType="UserMobile">
+			<id column="m_mobileId" property="mobileId" />
+			<result column="m_mobilePhone" property="mobilePhone" />
+			<result column="m_activeCode" property="activeCode" />
+			<result column="m_mobileStatus" property="mobileStatus" />
+			<result column="m_userId" property="userId" />
+			<result column="m_createTime" property="createTime" />
+			<result column="m_createUserId" property="createUserId" />
+			<result column="m_createNickname" property="createNickname" />
+			<result column="m_updateTime" property="updateTime" />
+			<result column="m_updateUserId" property="updateUserId" />
+			<result column="m_updateNickname" property="updateNickname" />
+			<result column="m_status" property="status" />
+		</association>
+	</resultMap>
+	
+	<sql id="full">
+		u.USER_ID,
+		u.NICKNAME,
+		u.PASSWORD,
+		u.MOBILE,
+		u.EMAIL,
+		u.REAL_NAME,
+		u.CARD_NUMBER,
+		u.USER_STATUS,
+		u.CREATE_TIME,
+		u.CREATE_USER_ID,
+		u.CREATE_NICKNAME,
+		u.UPDATE_TIME,
+		u.UPDATE_USER_ID,
+		u.UPDATE_NICKNAME,
+		u.STATUS,
+		ue.EMAIL_ID
+		ue_emailId,
+		ue.EMAIL ue_email,
+		ue.ACTIVE_CODE ue_activeCode,
+		ue.EMAIL_STATUS ue_emailStatus,
+		ue.USER_ID ue_userId,
+		ue.CREATE_TIME
+		ue_createTime,
+		ue.CREATE_USER_ID ue_createUserId,
+		ue.CREATE_NICKNAME
+		ue_createNickname,
+		ue.UPDATE_TIME ue_updateTime,
+		ue.UPDATE_USER_ID
+		ue_updateUserId,
+		ue.UPDATE_NICKNAME ue_updateNickname,
+		ue.STATUS
+		ue_status,
+		p.HEAD_PIC_ID p_headPicId,
+		p.TITLE p_title,
+		p.FILE_ID
+		p_fileId,
+		p.CREATE_TIME p_createTime,
+		p.CREATE_USER_ID p_createUserId,
+		p.CREATE_NICKNAME p_createNickName,
+		p.STATUS p_status,
+		c.ID_CARD_ID
+		c_idCardId,
+		c.REAL_NAME c_realName,
+		c.CARD_NUMBER c_cardNumber,
+		c.ID_CARD_STATUS c_idCardStatus,
+		c.FILE_ID c_fileId,
+		c.USER_ID c_userId,
+		c.CREATE_TIME c_createTime,
+		c.CREATE_USER_ID c_createUserId,
+		c.CREATE_NICKNAME c_createNickname,
+		c.UPDATE_TIME c_updateTime,
+		c.UPDATE_USER_ID c_updateUserId,
+		c.UPDATE_NICKNAME c_updateNickname,
+		c.STATUS c_status,
+		m.MOBILE_ID m_mobileId,
+		m.MOBILE_PHONE m_mobilePhone,
+		m.ACTIVE_CODE m_activeCode,
+		m.MOBILE_STATUS m_mobileStatus,
+		m.USER_ID
+		m_userId,
+		m.CREATE_TIME m_createTime,
+		m.CREATE_USER_ID m_createUserId,
+		m.CREATE_NICKNAME m_createNickname,
+		m.UPDATE_TIME m_updateTime,
+		m.UPDATE_USER_ID m_updateUserId,
+		m.UPDATE_NICKNAME m_updateNickname,
+		m.STATUS m_status
+	</sql>
+	
+	<sql id="all">
+		USER_ID,
+		NICKNAME, PASSWORD,
+		MOBILE_ID, MOBILE, EMAIL_ID, EMAIL, ID_CARD_ID,
+		REAL_NAME,
+		CARD_NUMBER, HEAD_PIC_ID, USER_STATUS,
+		CREATE_TIME, CREATE_USER_ID,
+		CREATE_NICKNAME, UPDATE_TIME,
+		UPDATE_USER_ID, UPDATE_NICKNAME, STATUS
+	</sql>
+	
+	<sql id="query">
+		<if test="userId!= null">
+			<if test="userIdUnequal!=null">
+			and USER_ID!=#{userId}
+			</if>
+			<if test="userIdUnequal==null">
+			and USER_ID=#{userId}
+			</if>
+		</if>
+		<if test="nickname!= null">
+			and NICKNAME LIKE BINARY concat('%', #{nickname} ,'%')
+			<!--and NICKNAME=#{nickname} 把用户昵称的查询改成'模糊'查询-->
+		</if>
+		<if test="password!= null">
+			and PASSWORD=#{password}
+		</if>
+		<if test="userMobile!= null">
+			<if test="userMobile.mobileId!= null">
+				and MOBILE_ID=#{userMobile.mobileId}
+			</if>
+			<if test="userMobile.mobilePhone!= null">
+				and MOBILE=#{userMobile.mobilePhone}
+			</if>
+		</if>	
+		<if test="userEmail!= null">
+			<if test="userEmail.emailId!= null">
+				and EMAIL_ID=#{userEmail.emailId}
+			</if>
+			<if test="userEmail.email!= null">
+				and EMAIL=#{userEmail.email}
+			</if>
+		</if>
+		<if test="userIdCard!= null">
+			<if test="userIdCard.idCardId!= null">
+				and ID_CARD_ID=#{userIdCard.idCardId}
+			</if>
+		</if>	
+		<if test="realName!= null">
+			and REAL_NAME=#{realName}
+		</if>
+		<if test="cardNumber!= null">
+			and CARD_NUMBER=#{cardNumber}
+		</if>
+		<if test="userHeadPic!= null">
+			<if test="userHeadPic.headPicId!= null">
+				and HEAD_PIC_ID=#{userHeadPic.headPicId}
+			</if>
+		</if>
+		<if test="userStatus!= null">
+			and USER_STATUS=#{userStatus}
+		</if>
+		<if test="createTime!= null">
+			and CREATE_TIME=#{createTime}
+		</if>
+		<if test="createUserId!= null">
+			and CREATE_USER_ID=#{createUserId}
+		</if>
+		<if test="createNickname!= null">
+			and CREATE_NICKNAME=#{createNickname}
+		</if>
+		<if test="updateTime!= null">
+			and UPDATE_TIME=#{updateTime}
+		</if>
+		<if test="updateUserId!= null">
+			and UPDATE_USER_ID=#{updateUserId}
+		</if>
+		<if test="updateNickname!= null">
+			and UPDATE_NICKNAME=#{updateNickname}
+		</if>
+		<if test="status!= null">
+			and STATUS=#{status}
+		</if>
+	</sql>
+	<sql id="page">limit #{startRows},#{endRows}</sql>
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="{CLASS_NAME}Mapper">
+	<resultMap type="{CLASS_TITLE}" id="defaultMap">
+		<id column="{PRIMARY_KEY}" property="{PRIMARY_NAME}" />
+		{MAPPER_RESULT}
+	</resultMap>
+	<insert id="insert" parameterType="{CLASS_TITLE}" keyProperty="{KEY_NAME}" useGeneratedKeys="true">
+		insert into {TABLE_NAME} ({MAPPER_CLOUMN_LIST})
+		values({MAPPER_PROPERTY_LIST});
+	</insert>
+	<update id="update" parameterType="{CLASS_TITLE}">
+		update {TABLE_NAME}
+		<trim prefix="SET" suffixOverrides=",">
+			{MAPPER_UPDATE}
+			</trim>
+			where {PRIMARY_KEY}=#{{PRIMARY_NAME}};
+		
+	</update>
+	<delete id="delete" parameterType="{CLASS_TITLE}">
+		delete from {TABLE_NAME} where {PRIMARY_KEY}=#{{PRIMARY_NAME}}
+	</delete>
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from {TABLE_NAME} where {PRIMARY_KEY} = #{id}
+	</delete>
+
+	<select id="getById" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from {TABLE_NAME} where {PRIMARY_KEY} = #{id} and STATUS=#{status} limit 1
+	</select>
+
+	<select id="findAll" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select
+		<include refid="all" />
+		from {TABLE_NAME} where 1=1
+		<include refid="query" />
+		<include refid="page" />
+	</select>
+	
+	<select id="getCount" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count({PRIMARY_KEY}) from {TABLE_NAME} where 1=1
+		<include refid="query" />
+	</select>
+	
+	<sql id="all">
+		{MAPPER_ALL}
+	</sql>
+	
+	<sql id="query">
+		{MAPPER_QUERY}
+	</sql>
+	
+	<sql id="page">limit #{startRows},#{endRows}</sql>	
+</mapper>

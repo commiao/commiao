@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dataGroupMapper" >
+  <resultMap id="defaultMap" type="DataGroup" >
+    <id column="GROUP_ID" property="id" jdbcType="BIGINT" />
+    <result column="COLUMN_ID" property="columnId" jdbcType="BIGINT" />
+    <result column="COUNT_DATA" property="countData" jdbcType="INTEGER" />
+    <result column="COUNT_DATA_Y" property="countDataY" jdbcType="INTEGER" />
+    <result column="COUNT_DATA_N" property="countDataN" jdbcType="INTEGER" />
+  </resultMap>
+  	<sql id="all">
+		GROUP_ID,COLUMN_ID,COUNT_DATA,COUNT_DATA_Y,COUNT_DATA_N
+	</sql>
+	<sql id="query">1=1 
+		<if test="id!= null">
+			and GROUP_ID=#{id}
+		</if>
+		<if test="columnId!= null">
+			and COLUMN_ID=#{columnId}
+		</if>
+		<if test="countData!= null">
+			and COUNT_DATA=#{countData}
+		</if>
+		<if test="countDataY!= null">
+			and COUNT_DATA_Y=#{countDataY}
+		</if>
+		<if test="countDataN!= null">
+			and COUNT_DATA_N=#{countDataN}
+		</if>
+	</sql>
+  	<insert id="insert" parameterType="DataGroup" keyProperty="id" useGeneratedKeys="true">
+		insert into DATA_GROUP
+		(COLUMN_ID,COUNT_DATA,COUNT_DATA_Y,COUNT_DATA_N)
+		values(#{columnId},#{countData},#{countDataY},#{countDataN};
+	</insert>
+	<update id="update" parameterType="DataGroup">
+		update DATA_GROUP
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="columnId!=null">
+				COLUMN_ID=#{columnId},
+			</if>
+			<if test="countData!=null">
+				COUNT_DATA=#{countData},
+			</if>
+			<if test="countDataY!=null">
+				COUNT_DATA_Y=#{countDataY},
+			</if>
+			<if test="countDataN!=null">
+				COUNT_DATA_N=#{countDataN},
+			</if>
+		</trim>
+		where GROUP_ID=#{id};
+	</update>
+	<delete id="delete" parameterType="DataGroup">
+		delete from DATA_GROUP where GROUP_ID=#{id}
+	</delete>
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from DATA_GROUP where GROUP_ID = #{id}
+	</delete>
+	<select id="getById" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select <include refid="all" /> from DATA_GROUP where GROUP_ID = #{id}
+	</select>
+	<select id="findAll" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select <include refid="all" /> from DATA_GROUP where <include refid="query" />
+	</select>
+	<select id="getCount" resultType="java.lang.Long" parameterType="java.util.HashMap">
+		select count(GROUP_ID) from DATA_GROUP where <include refid="query" />
+	</select>
+	<select id="getOne" resultMap="defaultMap" parameterType="java.util.HashMap">
+		select <include refid="all" /> from DATA_GROUP where <include refid="query" />
+	</select>
+</mapper>

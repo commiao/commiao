@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+  	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:p="http://www.springframework.org/schema/p" 
+       xmlns:context="http://www.springframework.org/schema/context"
+  
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+  					  http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+				      http://www.springframework.org/schema/context 
+				      http://www.springframework.org/schema/context/spring-context-4.2.xsd
+				      http://www.springframework.org/schema/mvc
+                      http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+				      http://www.springframework.org/schema/lang 
+				      http://www.springframework.org/schema/lang/spring-lang-4.2.xsd">
+
+  <import resource="classpath:database_ctx.xml"/>
+  <!-- 依赖的服务属性配置器，从指定的属性文件中读取信息 -->
+  <bean
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    <property name="ignoreUnresolvablePlaceholders" value="true" />
+    <property name="locations">
+      <list>
+        <value>classpath:server_local.properties</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- 配置Map Bean，可用于转换properties中的属性 -->
+  <bean id="propertyHolder" class="com.commiao.domain.utils.PropertyHolder">
+    <property name="properties">
+      <map>
+        <entry key="systemEmail" value="${email.systemEmail}" />
+        <entry key="cms_dns_name" value="${cms.dns.name}"  />
+        <entry key="cms_admin_email" value="${cms.admin.email}"  />
+      </map>
+    </property>
+  </bean>
+  <!-- spring email 发送服务 -->
+  <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">  
+        <property name="protocol" value="${email.protocol}"/>
+        <property name="host" value="${email.host}"/>
+        <property name="username" value="${email.username}"/>
+        <property name="password" value="${email.password}"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.${email.proptocol}.auth">${email.auth}</prop>
+            </props>
+        </property>
+   </bean>
+  <context:component-scan base-package="com.commiao">
+  	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+  </context:component-scan>
+</beans>

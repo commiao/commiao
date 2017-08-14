@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sysUserMapper">
+
+	<!-- 获取查询用户数量 -->
+    <select id="getSysUserCount" parameterType="SysUser" resultType="java.lang.Long">
+        select count(id) from components_security_user where 1=1 <include refid="query"/>
+    </select>
+	
+    <!-- 获取用户列表 -->
+    <select id="findSysUsers" resultMap="defaultMap" parameterType="SysUser">
+        select  <include refid="all"/> from components_security_user where 1=1 <include refid="query"/>
+        limit #{startRows},#{endRows}
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="SysUser">
+        insert into components_security_user(name,login_name,real_name,login_password,user_type)
+       	             values(#{name},#{loginName},#{realName},MD5(#{loginPassword}),#{userType})
+    </insert>
+
+    <update id="update" parameterType="SysUser">
+        update components_security_user
+        set name=#{name},login_name=#{loginName},real_name=#{realName},login_password = MD5(#{loginPassword}),user_type=#{userType}
+        where id = #{id}
+    </update>
+    <select id="delete" resultMap="defaultMap">
+        delete from components_security_user where
+        id = #{id}
+    </select>
+    
+    <!-- 批量删除用户 -->
+    <select id="deleteByIds" resultMap="defaultMap">
+        delete from components_security_user where
+        id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    
+    <!-- 删除用户-组织机构-角色表相关数据 -->
+    <delete id="deleteOrgSysUser" parameterType="java.lang.Long">
+    	delete from components_security_org_role where user_id = #{userid}
+    </delete>
+    
+    <!-- 删除用户-权限表相关数据 -->
+    <select id="deleteSysUserRoleMenu" parameterType="java.lang.Long">
+    	delete from components_security_user_rela_menu where user_id = #{userid}
+    </select>
+    
+    <select id="getById" resultMap="defaultMap">
+        select <include refid="all"/> from components_security_user where id = #{id} limit 1
+    </select>
+    
+    <resultMap type="SysUser" id="defaultMap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="login_name" property="loginName"/>
+        <result column="real_name" property="realName"/>
+        <result column="login_password" property="loginPassword"/>
+        <result column="user_type" property="userType"/>
+    </resultMap>
+
+    <sql id="all">
+        id,name,login_name,real_name,login_password,user_type
+    </sql>
+    <sql id="query">
+        <if test="name != null">
+            AND name LIKE BINARY concat('%', #{name} ,'%')
+        </if>
+    </sql>
+</mapper>
