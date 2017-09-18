@@ -84,6 +84,16 @@
 				<version>${arch.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>com.commiao.parent</groupId>
+	    		<artifactId>basic.business.tools</artifactId>
+	    		<version>${arch.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.commiao.parent</groupId>
+	    		<artifactId>basic.business.entity</artifactId>
+	    		<version>${arch.version}</version>
+			</dependency>
 
 			<!--接口包 -->
 

@@ -8,10 +8,8 @@
 	</parent>
 	<artifactId>controller.parent</artifactId>
 	<packaging>pom</packaging>
-
+	
 	<modules>
 		<module>controller.common</module>
-		<module>controller.domain</module>
 	</modules>
-	
 </project>

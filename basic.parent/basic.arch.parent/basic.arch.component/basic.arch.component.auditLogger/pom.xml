@@ -8,8 +8,6 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>basic.arch.component.auditLogger</artifactId>
-  <name>basic.arch.component.auditLogger</name>
-  <url>http://maven.apache.org</url>
   
   	<properties>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

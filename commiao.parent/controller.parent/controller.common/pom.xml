@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.commiao.parent</groupId>
+		<artifactId>controller.parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>controller.common</artifactId>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.commiao.parent</groupId>
+    		<artifactId>basic.business.tools</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>pull-parser</groupId>
+					<artifactId>pull-parser</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.commiao.basic.parent</groupId>
+			<artifactId>basic.arch.component.spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.commiao.basic.parent</groupId>
+			<artifactId>basic.arch.component.http</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.commiao.basic.parent</groupId>
+			<artifactId>basic.arch.component.logger</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.commiao.basic.parent</groupId>
+			<artifactId>basic.arch.component.auditLogger</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.commiao.basic.parent</groupId>
+			<artifactId>basic.arch.tools.utils</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.commiao.parent</groupId>
+    		<artifactId>basic.business.entity</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.axet</groupId>
+			<artifactId>kaptcha</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.richgo</groupId>
+			<artifactId>richgo-message-service</artifactId>
+			<version>1.0.0 </version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.10</artifactId>
+			<version>0.8.2.2</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+</project>
