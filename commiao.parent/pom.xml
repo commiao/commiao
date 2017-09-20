@@ -9,6 +9,12 @@
 	<artifactId>commiao.parent</artifactId>
 	<packaging>pom</packaging>
 	
+	<modules>
+		<module>basic.business.parent</module>
+		<module>controller.parent</module>
+		<module>container.parent</module>
+	</modules>
+	
 	<properties>
 		<htmall.version>${project.version}</htmall.version>
 		<arch.version>${project.version}</arch.version>
@@ -102,6 +108,16 @@
 			<dependency>
 				<groupId>com.commiao.parent</groupId>
 				<artifactId>controller.common</artifactId>
+				<version>${htmall.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.commiao.parent</groupId>
+				<artifactId>controller.common.simple</artifactId>
+				<version>${htmall.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.commiao.parent</groupId>
+				<artifactId>controller.truck</artifactId>
 				<version>${htmall.version}</version>
 			</dependency>
 	</dependencies>
