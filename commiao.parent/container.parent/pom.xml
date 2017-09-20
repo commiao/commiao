@@ -12,5 +12,6 @@
 
 	<modules>
 		<module>container.truck</module>
-	</modules>
+    <module>container.index</module>
+  </modules>
 </project>

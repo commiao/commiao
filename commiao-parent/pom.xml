@@ -133,9 +133,7 @@
 		<module>commiao-domain</module>
 		<module>commiao-service</module>
 		<module>commiao-dao</module>
-    	<module>commiao-index</module>
     	<module>commiao-com</module>
-    	<module>commiao-truck</module>
     	<module>commiao-ssm</module>
 	</modules>
 	<build>
