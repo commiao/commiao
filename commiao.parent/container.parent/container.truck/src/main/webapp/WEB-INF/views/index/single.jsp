@@ -1,0 +1,130 @@
+<%@page contentType="text/html;charset=UTF-8"%>
+<%@ include file="/global/global-index.jsp"%>
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<title>${webTitle} | 主页</title>
+</head>
+<body>
+<div id="home" class="banner a-banner">
+	<!-- banner -->
+		<%@ include file="/layout/banner.jsp"%>
+	<!-- //banner -->
+</div>
+	<!--single_page -->
+<div class="container">
+				<div class="single wow fadeInLeft animated" data-wow-delay="0.4s" style="visibility: visible; -webkit-animation-delay: 0.4s;">
+					<div class="blog-to">		
+					
+						<img class="img-responsive sin-on" src="images/sin2.jpg" alt="" />
+							<div class="blog-top">
+							<div class="blog-left">
+								<b>23</b>
+								<span>July</span>
+							</div>
+							<div class="top-blog">
+								<a class="fast" href="#">It is a long established fact that a reader will be distracted </a>
+								<p>Posted by <a href="#">Admin</a> in <a href="#">General</a> | <a href="#">10 Comments</a></p> 
+								<p class="sed">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500
+									 when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap.
+									 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500
+									 when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap.</p> 
+									 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque malesuada purus a convallis dictum. Phasellus sodales varius diam, non sagittis lectus. Morbi id magna ultricies ipsum condimentum scelerisque vel quis felis. Donec et purus nec leo interdum sodales nec sit amet magna.</p>
+								<div class="col-md-6 md-in">
+						<ul class="grid-part">
+							<li><a href="#"><i class="sign"> </i>Sed ut perspiciatis unde omnis</a></li>
+							<li><a href="#"><i class="sign"> </i>Lorem ipsum dolor sit amet,  </a></li>
+							<li><a href="#"><i class="sign"> </i>Sed ut perspiciatis unde omnis</a></li>
+							<li><a href="#"><i class="sign"> </i>Lorem ipsum dolor sit amet,  </a></li>
+							<li><a href="#"><i class="sign"> </i>Sed ut perspiciatis unde omnis</a></li>
+						</ul>
+						</div>
+						<div class="col-md-6 md-in">
+						<ul class="grid-part">
+							<li><a href="#"><i class="sign"> </i>Sed ut perspiciatis unde omnis</a></li>
+							<li><a href="#"><i class="sign"> </i>Lorem ipsum dolor sit amet,  </a></li>
+							<li><a href="#"><i class="sign"> </i>Sed ut perspiciatis unde omnis</a></li>
+							<li><a href="#"><i class="sign"> </i>Lorem ipsum dolor sit amet,  </a></li>
+							<li><a href="#"><i class="sign"> </i>Sed ut perspiciatis unde omnis</a></li>
+						</ul>
+						</div>
+						<div class="clearfix"> </div>
+							</div>
+							<div class="clearfix"> </div>
+					</div>
+					</div>		
+		<div class="single-middle">
+			
+			<h3>3 Comments</h3>
+				<div class="media">
+				  <div class="media-left">
+					<a href="#">
+					  <img class="media-object" src="images/co.png" alt="">
+					</a>
+				  </div>
+				  <div class="media-body">
+					<h4 class="media-heading"><a href="#">Richard Spark</a></h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Duis aute irure dolor in reprehenderit .</p>
+				  </div>
+				</div>
+				<div class="media in-media">
+				  <div class="media-left">
+					<a href="#">
+					  <img class="media-object" src="images/co.png" alt="">
+					</a>
+				  </div>
+				   <div class="media-body">
+					<h4 class="media-heading"><a href="#">Joseph Goh</a></h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Duis aute irure dolor in reprehenderit .</p>
+				  </div>
+				</div>
+				<div class="media">
+				  <div class="media-left">
+					<a href="#">
+					  <img class="media-object" src="images/co.png" alt="">
+					</a>
+				  </div>
+				  <div class="media-body">
+					<h4 class="media-heading"><a href="#">Melinda Dee</a></h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+					Duis aute irure dolor in reprehenderit .</p>
+				  </div>
+				</div>
+			
+		</div>
+		<!---->
+		<div class="single-bottom">
+		
+			<h3>Leave A Comment</h3>
+				<form>
+						<div class="col-md-4 comment">
+						<input type="text" value="Name" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Name';}">
+						</div>
+						<div class="col-md-4 comment">
+						<input type="text" value="Email" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Email';}">
+						</div>
+						<div class="col-md-4 comment">
+						<input type="text" value="Subject" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='Subject';}">
+						</div>
+						<div class="clearfix"> </div>
+						<textarea cols="77" rows="6" value=" " onfocus="this.value='';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
+						
+							<input type="submit" value="Send" >
+						
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- //single_page -->
+	<!-- footer -->
+		<%@ include file="/layout/footer.jsp" %>
+	<!-- //footer -->
+</body>
+</html>

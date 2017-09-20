@@ -11,6 +11,10 @@
 
 	<dependencies> 
 		<dependency>
+			<groupId>com.commiao.basic.parent</groupId>
+			<artifactId>basic.arch.component.logger</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
