@@ -12,6 +12,7 @@
 
 	<modules>
 		<module>container.truck</module>
-    <module>container.index</module>
+	    <module>container.index</module>
+        <module>container.network</module>
   </modules>
 </project>

@@ -13,5 +13,6 @@
 		<module>controller.common</module>
 	    <module>controller.common.simple</module>
 	    <module>controller.truck</module>
-  	</modules>
+    <module>controller.network</module>
+  </modules>
 </project>

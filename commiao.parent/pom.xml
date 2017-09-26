@@ -120,6 +120,11 @@
 				<artifactId>controller.truck</artifactId>
 				<version>${htmall.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.commiao.parent</groupId>
+				<artifactId>controller.network</artifactId>
+				<version>${htmall.version}</version>
+			</dependency>
 	</dependencies>
 </dependencyManagement>	
 	
