@@ -133,7 +133,6 @@
 		<module>commiao-domain</module>
 		<module>commiao-service</module>
 		<module>commiao-dao</module>
-    	<module>commiao-com</module>
     	<module>commiao-ssm</module>
 	</modules>
 	<build>

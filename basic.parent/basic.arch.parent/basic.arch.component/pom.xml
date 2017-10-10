@@ -18,6 +18,7 @@
     <module>basic.arch.component.auditLogger</module>
     <module>basic.arch.component.spring.hession</module>
     <module>basic.arch.component.http</module>
+    <module>basic.arch.component.cloudStorage</module>
   </modules>
  
 	<dependencyManagement>
