@@ -1,4 +1,4 @@
-package basic.arch.component.cloudStorage;
+package basic.arch.component.cloudStorage.ali;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,6 +11,8 @@ import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.*;
+
+import basic.arch.component.cloudStorage.common.SystemManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -191,8 +193,7 @@ public class OSSObjectSample {
     }
 
     // 删除一个Bucket和其中的Objects 
-    private static void deleteBucket(OSSClient client, String bucketName)
-            throws OSSException, ClientException {
+    private static void deleteBucket(OSSClient client, String bucketName) throws OSSException, ClientException {
 
         ObjectListing ObjectListing = client.listObjects(bucketName);
         List<OSSObjectSummary> listDeletes = ObjectListing

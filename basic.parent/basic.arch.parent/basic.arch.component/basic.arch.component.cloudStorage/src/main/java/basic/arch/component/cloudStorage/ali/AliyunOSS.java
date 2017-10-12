@@ -1,4 +1,4 @@
-package basic.arch.component.cloudStorage;
+package basic.arch.component.cloudStorage.ali;
 
 import java.io.Serializable;
 

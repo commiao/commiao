@@ -1,4 +1,4 @@
-package basic.arch.component.cloudStorage;
+package basic.arch.component.cloudStorage.ali;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -22,6 +22,9 @@ import com.aliyun.oss.model.CannedAccessControlList;
 import com.aliyun.oss.model.ListObjectsRequest;
 import com.aliyun.oss.model.OSSObjectSummary;
 import com.aliyun.oss.model.ObjectListing;
+
+import basic.arch.component.cloudStorage.common.SystemManager;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,12 +44,12 @@ public class OSSFileManagerJson {
 	
 	public String write(HttpServletRequest request,HttpServletResponse response){
 		logger.error("write...");
-		SystemSetting systemSetting = SystemManager.getInstance().getSystemSetting();
+//		SystemSetting systemSetting = SystemManager.getInstance().getSystemSetting();
 		//根目录路径，可以指定绝对路径，比如 /var/www/attached/
 		String rootPath = null;//pageContext.getServletContext().getRealPath("/") + "attached/";
 		//String rootPath = "D:\\workspace\\myshop\\web\\attached\\";//pageContext.getServletContext().getRealPath("/") + "attached/";
 		//根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
-		String rootUrl  = systemSetting.getImageRootPath()+"/attached/";//request.getContextPath() + "/attached/";
+		String rootUrl  = request.getContextPath() + "/attached/";//systemSetting.getImageRootPath()+"/attached/";
 		rootPath = rootUrl;
 		//图片扩展名
 		String[] fileTypes = new String[]{"gif", "jpg", "jpeg", "png", "bmp"};
