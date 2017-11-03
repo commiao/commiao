@@ -13,6 +13,7 @@
 		<module>basic.business.parent</module>
 		<module>controller.parent</module>
 		<module>container.parent</module>
+		<module>interface.parent</module>
 	</modules>
 	
 	<properties>
