@@ -30,10 +30,12 @@
 	<!-- 扫描包路径 -->
 	<context:component-scan base-package="com.commiao.inteface.demo"/>
 	<context:component-scan base-package="basic.arch.component.logger"/>
+	<context:component-scan base-package="basic.arch.component.cache"/>
 	<context:component-scan base-package="basic.arch.component.exception"/>
 
-	<import resource="classpath:spring/applicationContext-dataSource.xml" />
+	<import resource="classpath:spring/applicationContext-dataSource-c3p0.xml" />
 	<import resource="classpath:spring/applicationContext-tx.xml" />
 	<import resource="classpath:spring/applicationContext-logger.xml" />
+	<import resource="classpath:spring/applicationContext-redis.xml" />
 
 </beans>
