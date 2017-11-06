@@ -30,6 +30,8 @@ public class RedisTest {
 	}
 	@Test
 	public void testDel(){
-		redisCacheService.deleteByPrex(key);
+		redisCacheService.deleteBySuffix(key);
+//		redisCacheService.deleteByPrex("TO:"+key);
+//		redisCacheService.deleteByKeys("TO:"+key);
 	}
 }

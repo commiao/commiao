@@ -22,7 +22,7 @@ public class ControllerLogAspect {
 
 	private static HTLogger logger = HTLoggerFactory.getLogger(ControllerLogAspect.class);
 
-	@Pointcut("@annotation(com.hengtianjf.sdk.controller.common.aopLog.ControllerMethodLog)")
+	@Pointcut("@annotation(com.commiao.sdk.controller.common.aopLog.ControllerMethodLog)")
 	public void methodAspect() {
 	}
 
