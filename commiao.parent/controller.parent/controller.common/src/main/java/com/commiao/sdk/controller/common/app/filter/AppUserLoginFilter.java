@@ -17,12 +17,12 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chtwm.mall.pojo.UserInfo;
 import com.commiao.basic.business.tools.common.constant.GlobalResultCode;
 import com.commiao.sdk.controller.common.app.config.ConfigPropertiesBean;
 import com.commiao.sdk.controller.common.domain.ControllerResponseBody;
 
 import basic.arch.tools.utils.common.BigdataConstants;
+import core.entity.Userinfo;
 
 public class AppUserLoginFilter implements Filter {
 
@@ -71,7 +71,7 @@ public class AppUserLoginFilter implements Filter {
                 }
             }
             Object object = session.getAttribute(BigdataConstants.SESSION_USER_KEY);
-            UserInfo userInfo = object == null ? null : (UserInfo) object;
+            Userinfo userInfo = object == null ? null : (Userinfo) object;
             if (userInfo == null) {
                 httpResponse.setCharacterEncoding("UTF-8");
                 ControllerResponseBody<Object> appResponseBody = new ControllerResponseBody<Object>();

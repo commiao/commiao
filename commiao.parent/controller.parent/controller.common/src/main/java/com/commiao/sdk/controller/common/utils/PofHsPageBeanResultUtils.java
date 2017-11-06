@@ -8,8 +8,6 @@ import basic.arch.component.logger.manager.HTLoggerFactory;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.github.miemiedev.mybatis.paginator.domain.Paginator;
-import com.commiao.pojo.pof.PofServicesParamGenericity;
-import com.commiao.pojo.pof.domian.ServiceResponseBody;
 import com.commiao.sdk.controller.common.domain.PageBeanResult;
 
 /** 
@@ -63,6 +61,7 @@ public class PofHsPageBeanResultUtils {
         return method.invoke(owner);  
     } 
 	
+	@SuppressWarnings("unused")
 	private static <T>int getTotal(T t){
 		int total = 0;
 		if(t==null){
@@ -78,11 +77,6 @@ public class PofHsPageBeanResultUtils {
 			e.printStackTrace();
 		}
 		return total;
-	}
-	
-	public static <T>PageBeanResult<T> getPageBeanResult(ServiceResponseBody<List<T>> serviceResponse,PofServicesParamGenericity params){
-		int total = serviceResponse.getData()==null||serviceResponse.getData().size()<1?0:getTotal(serviceResponse.getData().get(0));
-		return getPageBeanResult(serviceResponse.getData(), params.getPageCurrent(), params.getPageSize(), total);
 	}
 	
 }
