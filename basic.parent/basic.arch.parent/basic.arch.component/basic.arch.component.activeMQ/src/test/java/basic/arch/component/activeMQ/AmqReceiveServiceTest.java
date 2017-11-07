@@ -11,21 +11,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/applicationContext-all.xml" })
-public class AmqSenderServiceTest{
+public class AmqReceiveServiceTest {
 
     //目的地队列的明证，我们要向这个队列发送消息
     @Resource(name = "destinationQueue")
     private Destination destination;
 	
 	@Autowired
-	private AmqSenderService amqSenderService;
+	private AmqReceiveService amqReceiveService;
 	
 	@Test
-	public void testsendMsg() throws InterruptedException{
-		for(int i=0;i<5;i++){
-			Thread.sleep(5000);
-			amqSenderService.sendMsg(destination, "测试MQ队列########################");
-		}
-		System.out.println("执行发送信息完成");
-	}
+	public void testreceive(){
+		amqReceiveService.receive(destination);
+		System.out.println("执行接收信息完成");
+	}	
+	
 }

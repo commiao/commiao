@@ -22,13 +22,13 @@ public class AmqSenderServiceImpl implements AmqSenderService{
     @Resource(name = "jmsTemplate")
     private JmsTemplate jmsTemplate;
 
-    //目的地队列的明证，我们要向这个队列发送消息
-    @Resource(name = "destinationQueue")
-    private Destination destination;
 
-    //向特定的队列发送消息
+    /** 
+     * 向特定的队列发送消息. 
+     * @see basic.arch.component.activeMQ.AmqSenderService#sendMsg(javax.jms.Destination, java.lang.String) 
+     */  
     @Override
-    public void sendMsg(String message) {
+    public void sendMsg(Destination destination, String message) {
         final String msg = JSON.toJSONString(message);
         try {
             logger.info("将要向队列{}发送的消息msg:{}", destination, msg);

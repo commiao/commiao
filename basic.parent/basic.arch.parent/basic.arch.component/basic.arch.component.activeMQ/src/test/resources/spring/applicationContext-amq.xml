@@ -23,31 +23,40 @@
                 <property name="brokerURL">
                     <value>tcp://127.0.0.1:61616</value>
                 </property>
+                <property name="userName">
+                    <value>admin</value>
+                </property>
+                <property name="password">
+                    <value>admin</value>
+                </property>
             </bean>
         </property>
         <property name="maxConnections" value="100"></property>
     </bean>
 
     <!--使用缓存可以提升效率-->
+    <!-- 配置JMS连接工长 -->
     <bean id="cachingConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
         <property name="targetConnectionFactory" ref="jmsFactory"/>
         <property name="sessionCacheSize" value="1"/>
     </bean>
 
+	<!-- Spring提供的JMS工具类，它可以进行消息发送、接收等 -->
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+    	<!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
         <property name="connectionFactory" ref="cachingConnectionFactory"/>
         <property name="messageConverter">
             <bean class="org.springframework.jms.support.converter.SimpleMessageConverter"/>
         </property>
     </bean>
 
-    <!--测试Queue,队列的名字是spring-queue-->
+	<!--这个是队列目的地，点对点的: 测试Queue,队列的名字是spring-queue -->
     <bean id="destinationQueue" class="org.apache.activemq.command.ActiveMQQueue">
         <!--<constructor-arg index="0" value="spring-queue"/>-->
         <constructor-arg name="name" value="spring-queue"/>
     </bean>
 
-    <!--测试Topic-->
+    <!--这个是主题目的地，一对多的：测试Topic -->
     <bean id="destinationTopic" class="org.apache.activemq.command.ActiveMQTopic">
         <constructor-arg index="0" value="spring-topic"/>
     </bean>           
