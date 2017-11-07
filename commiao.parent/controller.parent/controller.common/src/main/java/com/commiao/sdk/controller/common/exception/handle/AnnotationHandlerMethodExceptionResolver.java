@@ -28,18 +28,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 import com.commiao.basic.business.tools.common.constant.GlobalResultCode;
+import com.commiao.basic.business.tools.exception.PofInterfaceException;
+import com.commiao.basic.business.tools.exception.PofServiceException;
 import com.commiao.basic.business.tools.exception.ValidateParamsException;
 import com.commiao.sdk.controller.common.domain.ControllerResponseBody;
 import com.commiao.sdk.controller.common.exception.TransformJsonParamsException;
 
 import basic.arch.component.logger.handler.HTLogger;
 import basic.arch.component.logger.manager.HTLoggerFactory;
-import basic.arch.tools.utils.common.exception.DataCommonRuntimeException;
-import basic.arch.tools.utils.common.exception.DataExecuteResultRuntimeException;
-import basic.arch.tools.utils.common.exception.DataQueryRuntimeException;
-import basic.arch.tools.utils.common.exception.DataValidataException;
-import basic.arch.tools.utils.common.exception.PofInterfaceException;
-import basic.arch.tools.utils.common.exception.PofServiceException;
 
 /**
  * 不必在Controller中对异常进行处理，抛出即可，由此异常解析器统一控制。<br>
@@ -142,12 +138,6 @@ public class AnnotationHandlerMethodExceptionResolver extends ExceptionHandlerEx
 			msg = ((PofServiceException) exception).getMsg();
 			code = ((PofServiceException) exception).getCode();
 			logger.warn("公募服务发生错误，错误码:{},错误信息:{}", code, msg, exception);
-		} else if (exception instanceof DataValidataException//
-				|| exception instanceof DataExecuteResultRuntimeException//
-				|| exception instanceof DataQueryRuntimeException//
-				|| exception instanceof DataCommonRuntimeException) {
-			msg = "数据操作异常";
-			logger.error(exception.getMessage(), exception);
 		} else if (exception instanceof RuntimeException//
 				|| exception instanceof Exception//
 				|| exception instanceof Throwable) {

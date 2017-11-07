@@ -13,5 +13,10 @@
 	    <groupId>org.apache.activemq</groupId>
 	    <artifactId>activemq-all</artifactId>
 	</dependency>
+	
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>fastjson</artifactId>
+	</dependency>
   </dependencies>
 </project>

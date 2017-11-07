@@ -23,6 +23,10 @@
 			<groupId>com.commiao.basic.parent</groupId>
 			<artifactId>basic.arch.tools.utils</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.commiao.parent</groupId>
+			<artifactId>basic.business.entity</artifactId>
+		</dependency>
 		
 		<!-- oracle 驱动 -->
 		<dependency>
