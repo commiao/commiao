@@ -1,4 +1,4 @@
-package basic.arch.component.activeMQ;
+package basic.arch.component.activeMQ.demo;
 
 public class TestMq {
     public static void main(String[] args){

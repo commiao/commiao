@@ -1,4 +1,4 @@
-package basic.arch.component.activeMQ;
+package basic.arch.component.activeMQ.demo;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

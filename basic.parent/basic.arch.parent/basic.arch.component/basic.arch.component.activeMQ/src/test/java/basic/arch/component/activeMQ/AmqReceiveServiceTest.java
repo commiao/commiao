@@ -1,5 +1,7 @@
 package basic.arch.component.activeMQ;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.jms.Destination;
 import javax.jms.TextMessage;
@@ -9,6 +11,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.alibaba.fastjson.JSON;
+
+import basic.arch.component.activeMQ.entity.User;
+import basic.arch.component.activeMQ.service.AmqReceiveService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/applicationContext-all.xml" })
@@ -32,5 +39,30 @@ public class AmqReceiveServiceTest {
 		}
 		System.out.println("执行接收信息完成");
 	}	
+	
+	@Test
+	public void testreceiveMap(){
+		Map<String,Object> map = null;
+		while(true){
+			map = amqReceiveService.receiveMap(destination);
+			if(map == null){
+				break;
+			}
+		}
+		System.out.println("执行接收信息完成");
+	}
+	
+	@Test
+	public void testreceiveClazz(){
+		User user = null;
+		while(true){
+			user = amqReceiveService.receiveClazz(destination, User.class);
+			System.out.println(JSON.toJSON(user));
+			if(user==null){
+				break;
+			}
+		}
+		System.out.println("执行接收信息完成");
+	}
 	
 }
