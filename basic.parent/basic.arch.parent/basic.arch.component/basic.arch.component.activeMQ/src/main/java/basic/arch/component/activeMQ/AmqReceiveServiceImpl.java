@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service("amqReceiveService")
 public class AmqReceiveServiceImpl implements AmqReceiveService{
 
-    private static final Logger logger = LoggerFactory.getLogger(AmqReceiveServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(AmqSenderServiceImpl.class);
 
     @Resource(name = "jmsTemplate")
     private JmsTemplate jmsTemplate;
@@ -27,7 +27,7 @@ public class AmqReceiveServiceImpl implements AmqReceiveService{
 		TextMessage tm = (TextMessage) jmsTemplate.receive(destination);
 		if (tm != null) {
 			try {
-				logger.info("Get Message:{},from Destination{}。",tm.getText(),destination.toString());
+				logger.info("Receive Message:{},from Destination{}。",tm.getText(),destination.toString());
 			} catch (JMSException e) {
 				logger.error("从队列{}接收消息失败", destination);
 			}

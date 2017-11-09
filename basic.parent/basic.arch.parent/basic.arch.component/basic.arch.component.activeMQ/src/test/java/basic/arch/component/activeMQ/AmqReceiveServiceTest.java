@@ -2,6 +2,7 @@ package basic.arch.component.activeMQ;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;
+import javax.jms.TextMessage;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,8 +22,14 @@ public class AmqReceiveServiceTest {
 	private AmqReceiveService amqReceiveService;
 	
 	@Test
-	public void testreceive(){
-		amqReceiveService.receive(destination);
+	public void testreceive() throws InterruptedException{
+		TextMessage tm = null;
+		while(true){
+			tm = amqReceiveService.receive(destination);
+			if(tm==null){
+				break;
+			}
+		}
 		System.out.println("执行接收信息完成");
 	}	
 	

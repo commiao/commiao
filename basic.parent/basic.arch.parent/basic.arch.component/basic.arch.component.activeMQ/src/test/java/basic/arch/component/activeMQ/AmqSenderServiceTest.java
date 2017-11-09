@@ -22,9 +22,9 @@ public class AmqSenderServiceTest{
 	
 	@Test
 	public void testsendMsg() throws InterruptedException{
-		for(int i=0;i<5;i++){
-			Thread.sleep(5000);
-			amqSenderService.sendMsg(destination, "测试MQ队列########################");
+		for(int i=6;i<11;i++){
+			Thread.sleep(1000);
+			amqSenderService.sendMsg(destination, "测试MQ队列########################+"+i);
 		}
 		System.out.println("执行发送信息完成");
 	}
