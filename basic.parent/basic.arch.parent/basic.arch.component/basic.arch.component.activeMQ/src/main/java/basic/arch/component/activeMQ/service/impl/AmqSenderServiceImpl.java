@@ -56,7 +56,7 @@ public class AmqSenderServiceImpl implements AmqSenderService{
 	@Override
 	public void sendMap(Destination destination, Map<String,Object> map) {
 		try {
-			logger.info("将要向队列{}发送的消息map:{}", destination, JSON.toJSONString(map));
+			logger.info("将要向队列{}发送的消息map:{}", destination.toString(), JSON.toJSONString(map));
 			
 			jmsTemplate.send(destination, new MessageCreator() {
                 @Override
@@ -76,7 +76,7 @@ public class AmqSenderServiceImpl implements AmqSenderService{
 	@Override
 	public void sendBean(Destination destination, Object bean){
 		if(!(bean instanceof Serializable)){
-			logger.error("向队列{}发送消息失败，消息为：{},原因为：{}", destination, JSON.toJSON(bean),"bean对象必须实现序列化");
+			logger.error("向队列{}发送消息失败，消息为：{},原因为：{}", destination.toString(), JSON.toJSON(bean),"bean对象必须实现序列化");
 			return;
 		}
 		try {
@@ -89,7 +89,8 @@ public class AmqSenderServiceImpl implements AmqSenderService{
 				}
 			});
 		} catch (Exception ex){
-			logger.error("向队列{}发送消息失败，消息为：{},异常信息为：{}", destination, JSON.toJSON(bean), ex);
+			logger.error("向队列{}发送消息失败，消息为：{},异常信息为：{}", destination.toString(), JSON.toJSON(bean), ex);
 		}
+		
 	}
 }

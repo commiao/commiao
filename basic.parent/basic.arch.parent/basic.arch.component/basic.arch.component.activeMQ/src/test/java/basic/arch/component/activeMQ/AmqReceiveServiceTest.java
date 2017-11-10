@@ -65,4 +65,21 @@ public class AmqReceiveServiceTest {
 		System.out.println("执行接收信息完成");
 	}
 	
+	public static User getcheck(int i){
+		User user = new User();
+		user.setAge(i);
+		user.setId(Long.valueOf(i));
+		user.setName("测试"+i);
+		return user;
+	}
+	
+	public static void main(String[] args) {
+		User user = null;
+		for(int i=0;i<10;i++){
+			user = getcheck(i);
+			user.setAge(user.getAge()+10);
+			System.out.println(JSON.toJSONString(user));
+		}
+	}
+	
 }
