@@ -26,6 +26,31 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="propertyConfigurer" class="basic.arch.component.spring.properties.PropertyConfigurer">
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath*:/conf/config.properties</value>
+			</list>
+		</property>
+		<!-- 是否加载插件。当为false或者没有配置configList都视为不加载插件读取配置-->
+		<property name="loadPlugin" value="true" />
+		<property name="configList">
+			<list>
+				<ref bean="mysqlConfigRead"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="mysqlConfigRead" class="basic.arch.component.spring.properties.MysqlConfigRead">
+		
+		<!-- 排除的key，这些key自己加载 -->
+		<property name="excludeKeys">
+			<set>
+				<value>pofExcludePath</value>
+			</set>
+		</property>
+	</bean>
 
 	<!-- 扫描包路径 -->
 	<context:component-scan base-package="com.commiao.inteface.demo"/>
