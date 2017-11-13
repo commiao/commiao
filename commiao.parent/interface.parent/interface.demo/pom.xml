@@ -25,6 +25,10 @@
 		</dependency>
 		<dependency>
 			<groupId>com.commiao.parent</groupId>
+			<artifactId>basic.business.tools</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.commiao.parent</groupId>
 			<artifactId>basic.business.entity</artifactId>
 		</dependency>
 		
