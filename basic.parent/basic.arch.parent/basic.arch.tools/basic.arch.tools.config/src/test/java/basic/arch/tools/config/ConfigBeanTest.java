@@ -1,4 +1,4 @@
-package com.commiao.inteface.demo.config;
+package basic.arch.tools.config;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import basic.arch.tools.config.ConfigBean;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring/applicationContext-all.xml")
-public class ConfigTest {
+public class ConfigBeanTest {
+
+	
 	@Autowired
 	private ConfigBean configBean;
 	
@@ -21,7 +21,7 @@ public class ConfigTest {
 	
 	@Test
 	public void test(){
-		String str = configBean.getPofSmsConfig().getSmsSourceName();
+		String str = configBean.getPofSmsConfig().getSmsUrl();
 		System.out.println("测试结果========================="+str);
 	}
 	
@@ -29,4 +29,6 @@ public class ConfigTest {
 	public void end(){
 		System.out.println("单元测试结束");
 	}
+	
+	
 }

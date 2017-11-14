@@ -1,4 +1,4 @@
-package basic.arch.component.spring.properties;
+package basic.arch.tools.config.properties;
 
 import org.aeonbits.owner.Config.Sources;
 import org.aeonbits.owner.ConfigFactory;

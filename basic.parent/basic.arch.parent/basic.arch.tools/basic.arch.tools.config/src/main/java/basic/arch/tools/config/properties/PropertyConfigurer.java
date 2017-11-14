@@ -1,4 +1,4 @@
-package basic.arch.component.spring.properties;
+package basic.arch.tools.config.properties;
 
 import java.io.IOException;
 import java.util.Iterator;

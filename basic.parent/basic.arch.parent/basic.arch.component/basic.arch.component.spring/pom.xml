@@ -62,18 +62,6 @@
 			<groupId>com.commiao.basic.parent</groupId>
 			<artifactId>basic.arch.tools.encrypt</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-dbutils</groupId>
-			<artifactId>commons-dbutils</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.aeonbits.owner</groupId>
-			<artifactId>owner</artifactId>
-			<version>1.0.9</version>
-		</dependency>
+		
 	</dependencies>
 </project>

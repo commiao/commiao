@@ -90,6 +90,12 @@
 				<artifactId>basic.arch.tools.utils</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>com.commiao.basic.parent</groupId>
+				<artifactId>basic.arch.tools.config</artifactId>
+				<version>${arch.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>com.commiao.parent</groupId>
