@@ -20,6 +20,7 @@
     <module>basic.arch.component.http</module>
     <module>basic.arch.component.cloudStorage</module>
     <module>basic.arch.component.activeMQ</module>
+    <module>basic.arch.component.mongo</module>
   </modules>
  
 	<dependencyManagement>
