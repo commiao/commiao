@@ -19,9 +19,32 @@ public class ConfigBean implements ApplicationContextAware,InitializingBean,Embe
 	
 	private static ApplicationContext applicationContext;
 	
+	/**
+	 * mailConfig:邮箱配置文件. 
+	 */
+	@Resource
+	private MailConfig mailConfig;
+	
 	@Resource
 	private PofSmsConfig PofSmsConfig;
 	
+	
+	/**
+	 * 获取 mailConfig:邮箱配置文件.
+	 * @return the mailConfig
+	 */
+	public MailConfig getMailConfig() {
+		return mailConfig;
+	}
+
+	/**
+	 * 设置 mailConfig:邮箱配置文件. 
+	 * @param mailConfig the mailConfig to set
+	 */
+	public void setMailConfig(MailConfig mailConfig) {
+		this.mailConfig = mailConfig;
+	}
+
 	public PofSmsConfig getPofSmsConfig() {
 		return PofSmsConfig;
 	}

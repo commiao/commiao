@@ -13,6 +13,7 @@
   	<module>basic.arch.tools.codegenerator</module>
   	<module>basic.arch.tools.encrypt</module>
     <module>basic.arch.tools.config</module>
+    <module>basic.arch.tools.mail</module>
   </modules>
   
 	<dependencyManagement>
@@ -30,6 +31,16 @@
 			<dependency>
 				<groupId>com.commiao.basic.parent</groupId>
 				<artifactId>basic.arch.tools.utils</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.commiao.basic.parent</groupId>
+				<artifactId>basic.arch.tools.config</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.commiao.basic.parent</groupId>
+				<artifactId>basic.arch.tools.mail</artifactId>
 				<version>1.0.0-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
