@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.commiao.inteface.mgt.security.mapper.RoleMapper">
+	
+	<insert id="saveUserRoleMenu" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into components_security_user_rela_menu (user_id,role_id,menu_id)
+        values(#{userId},#{roleId},#{menuId})
+    </insert>
+	
+	<delete id="deleteURM" parameterType="java.lang.Long">
+        delete from components_security_user_rela_menu where
+        role_id = #{roleid}
+    </delete>
+	
+	
+	<select id="getORUUserIds" resultType="Long">
+        select DISTINCT user_id  from components_security_org_role  where
+        role_id = #{roleid}
+    </select>
+	
+	<delete id="deleteRoleMenusById" parameterType="java.lang.Long">
+        delete from components_security_role_rela_menu where
+        role_id = #{roleid}
+    </delete>
+	
+	<select id="getMenuIdsByRoleId" resultType="Long">
+        select rm.menu_id  from components_security_role_rela_menu rm where
+        role_id = #{roleId}
+    </select>
+	
+	<insert id="insertRoleMenu" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.Map">
+        insert into components_security_role_rela_menu (role_id,menu_id)
+        values(#{roleId},#{menuId})
+    </insert>
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="core.entity.security.Role">
+        insert into components_security_roles(NAME,CODE,ORDERSN,STATUS,DESCRIPTION,CREATOR,CREATE_TIME)
+        values(#{name},#{code},#{ordersn},#{status},#{description},#{creator},SYSDATE())
+    </insert>
+
+    <update id="update" parameterType="core.entity.security.Role">
+        update components_security_roles
+        set NAME=#{name},CODE = #{code},ORDERSN = #{ordersn},STATUS = #{status},DESCRIPTION = #{description},UPDATOR = #{creator},UPDATE_TIME = SYSDATE()
+        where id = #{id}
+    </update>
+    <select id="delete" resultMap="defaultMap">
+        delete from components_security_roles where
+        id = #{id}
+    </select>
+    <select id="deleteByIds" resultMap="defaultMap">
+        delete from components_security_roles where
+        id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    
+    <delete id="delRMS" >
+        delete from components_security_role_rela_menu where
+        role_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    
+    <delete id="delORS" >
+        delete from components_security_org_rela_role where
+        role_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    
+    <delete id="delURMS" >
+        delete from components_security_user_rela_menu where
+        role_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    
+    <delete id="delUORS" >
+        delete from components_security_org_role where
+        role_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    
+    <select id="getById" resultMap="defaultMap">
+        select <include refid="all"/> from components_security_roles where id = #{id} limit 1
+    </select>
+    
+    <select id="getRoleCount" resultType="java.lang.Long" parameterType="core.entity.security.Role">
+        select count(id) from components_security_roles where 1=1 <include refid="query"/>
+    </select>
+    
+    <select id="findRoles" resultMap="defaultMap" parameterType="core.entity.security.Role">
+        select  <include refid="all"/> from components_security_roles where 1=1 <include refid="query"/>
+        limit #{startRows},#{endRows}
+    </select>
+    
+    <resultMap type="core.entity.security.Role" id="defaultMap">
+        <id column="id" property="id"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="ordersn" property="ordersn"/>
+        <result column="status" property="status"/>
+        <result column="description" property="description"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="updator" property="updator"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="all">
+        id, name,code,ordersn,status,description,creator,create_time,updator,update_time
+    </sql>
+    <sql id="query">
+        <if test="name != null">
+            AND name LIKE BINARY concat('%', #{name} ,'%')
+        </if>
+    </sql>
+</mapper>
