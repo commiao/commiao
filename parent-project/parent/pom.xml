@@ -173,14 +173,6 @@
 				<version>2.5</version>
 			</plugin>
 
-			<!-- 代码相似度检查工具 -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>simian-maven-plugin</artifactId>
-				<version>1.6.1</version>
-			</plugin>
-
-
 			<!--http://maven.apache.org/plugins/maven-source-plugin/ -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
