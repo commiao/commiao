@@ -1,6 +1,6 @@
 package com.commiao.basic.business.tools.exception;
 
-import basic.arch.component.exception.BusinessServiceException;
+import base.arch.component.exception.BusinessServiceException;
 
 /**
  * CreateDate:2016年11月14日上午10:42:07

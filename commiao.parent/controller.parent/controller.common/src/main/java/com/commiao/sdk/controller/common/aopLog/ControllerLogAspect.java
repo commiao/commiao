@@ -6,8 +6,8 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
-import basic.arch.component.logger.handler.HTLogger;
-import basic.arch.component.logger.manager.HTLoggerFactory;
+import base.arch.component.logger.handler.HTLogger;
+import base.arch.component.logger.manager.HTLoggerFactory;
 
 /**
  * CreateDate:2016年11月2日下午2:22:25

@@ -8,8 +8,8 @@ import java.util.Set;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 
-import basic.arch.component.logger.handler.HTLogger;
-import basic.arch.component.logger.manager.HTLoggerFactory;
+import base.arch.component.logger.handler.HTLogger;
+import base.arch.component.logger.manager.HTLoggerFactory;
 /**
  * CreateDate:2016年9月27日上午9:15:11 
  * @Description: 多视图解析器   

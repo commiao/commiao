@@ -28,72 +28,67 @@
 	<dependencies>
 			<!--自定义的包 -->
 			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.component.exception</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.component.exception</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.component.excel</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.component.excel</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.component.logger</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.component.logger</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.component.mybatis</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.component.mybatis</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.component.cache</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.component.spring</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.component.spring</artifactId>
-				<version>${arch.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.component.spring.hession</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.component.spring.hession</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
 			<!-- <dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.component.spring.hbase</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.component.spring.hbase</artifactId>
 				<version>${arch.version}</version>
 			</dependency> -->
 			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.component.auditLogger</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.component.auditLogger</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.component.http</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.component.http</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
 
 
 			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.tools.encrypt</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.tools.encrypt</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
 
 			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.tools.utils</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.tools.utils</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
 			
 			<dependency>
-				<groupId>com.commiao.basic.parent</groupId>
-				<artifactId>basic.arch.tools.config</artifactId>
+				<groupId>commiao.base.parent</groupId>
+				<artifactId>base.arch.tools.config</artifactId>
 				<version>${arch.version}</version>
 			</dependency>
 

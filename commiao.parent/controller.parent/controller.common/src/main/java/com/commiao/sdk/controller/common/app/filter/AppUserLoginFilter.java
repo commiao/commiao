@@ -21,7 +21,7 @@ import com.commiao.basic.business.tools.common.constant.GlobalResultCode;
 import com.commiao.sdk.controller.common.app.config.ConfigPropertiesBean;
 import com.commiao.sdk.controller.common.domain.ControllerResponseBody;
 
-import basic.arch.tools.utils.common.BigdataConstants;
+import base.arch.tools.utils.common.BigdataConstants;
 import core.entity.Userinfo;
 
 public class AppUserLoginFilter implements Filter {

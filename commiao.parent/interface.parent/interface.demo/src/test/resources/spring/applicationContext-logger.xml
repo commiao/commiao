@@ -22,11 +22,11 @@
       	   http://www.springframework.org/schema/data/mongo  
 		   http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 	
-	<bean id="defaultGroup" class="basic.arch.component.logger.bean.Group" >
+	<bean id="defaultGroup" class="base.arch.component.logger.bean.Group" >
 		<property name="name" value="defaultGroup"/>
 	</bean>
 	
-	<bean id="sl4jLoggerHandler"  class="basic.arch.component.logger.handler.Sl4jLoggerHandler"/>
+	<bean id="sl4jLoggerHandler"  class="base.arch.component.logger.handler.Sl4jLoggerHandler"/>
 	
 	<bean id="handleLinkedlist" class="java.util.LinkedList">
 		<constructor-arg>
@@ -36,9 +36,9 @@
 		</constructor-arg>
 	</bean>
 	
-	<bean id="loggerSpringApplicationContextHolder" class="basic.arch.component.logger.manager.LoggerSpringApplicationContextHolder"></bean>
+	<bean id="loggerSpringApplicationContextHolder" class="base.arch.component.logger.manager.LoggerSpringApplicationContextHolder"></bean>
 	
-	<bean id="loggerChain" class="basic.arch.component.logger.manager.HTLoggerChain">
+	<bean id="loggerChain" class="base.arch.component.logger.manager.HTLoggerChain">
 		<constructor-arg name="map">
 			<map>
 				<entry  key="defaultGroup" value-ref="handleLinkedlist" />
@@ -48,13 +48,13 @@
 	</bean>
 	
 	
-	<bean id="loggerManager" class="basic.arch.component.logger.manager.HTLoggerManager">
+	<bean id="loggerManager" class="base.arch.component.logger.manager.HTLoggerManager">
 		<constructor-arg name="times" value="2"/>
 		<constructor-arg name="asynFlag" value="true" />
 		<property name="loggerChain" ref="loggerChain" />
 	</bean>
 	
-	<bean id="HTLoggerFactory" class="basic.arch.component.logger.manager.HTLoggerFactory" >
+	<bean id="HTLoggerFactory" class="base.arch.component.logger.manager.HTLoggerFactory" >
 	</bean>	
 	
 </beans>

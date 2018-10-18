@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import com.commiao.sdk.controller.common.exception.TransformJsonParamsException;
 
-import basic.arch.tools.utils.common.XssInjectionUtils;
-import basic.arch.tools.utils.jsonxml.JsonUtils;
+import base.arch.tools.utils.common.XssInjectionUtils;
+import base.arch.tools.utils.jsonxml.JsonUtils;
 
 /**
  * @author jannal 2016-01-13

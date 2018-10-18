@@ -34,8 +34,8 @@ import com.commiao.basic.business.tools.exception.ValidateParamsException;
 import com.commiao.sdk.controller.common.domain.ControllerResponseBody;
 import com.commiao.sdk.controller.common.exception.TransformJsonParamsException;
 
-import basic.arch.component.logger.handler.HTLogger;
-import basic.arch.component.logger.manager.HTLoggerFactory;
+import base.arch.component.logger.handler.HTLogger;
+import base.arch.component.logger.manager.HTLoggerFactory;
 
 /**
  * 不必在Controller中对异常进行处理，抛出即可，由此异常解析器统一控制。<br>

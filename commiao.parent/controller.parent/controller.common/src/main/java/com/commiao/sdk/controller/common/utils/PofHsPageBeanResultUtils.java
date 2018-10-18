@@ -3,8 +3,8 @@ package com.commiao.sdk.controller.common.utils;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import basic.arch.component.logger.handler.HTLogger;
-import basic.arch.component.logger.manager.HTLoggerFactory;
+import base.arch.component.logger.handler.HTLogger;
+import base.arch.component.logger.manager.HTLoggerFactory;
 
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.github.miemiedev.mybatis.paginator.domain.Paginator;

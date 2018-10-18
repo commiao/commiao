@@ -1,12 +1,12 @@
 package com.commiao.basic.business.tools.exception;
 
-import basic.arch.component.exception.BusinessServiceException;
+import base.arch.component.exception.BusinessServiceException;
 
 /**
  * 方法统一校验异常
  * @author jannal
  */
-public class ValidateParamsException  extends BusinessServiceException{
+public class ValidateParamsException  extends BusinessServiceException {
 
     private static final long serialVersionUID = 1L;
     

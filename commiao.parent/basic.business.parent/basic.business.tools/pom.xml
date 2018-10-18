@@ -44,16 +44,16 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.component.exception</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.component.exception</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.component.logger</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.component.logger</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.tools.utils</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.tools.utils</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -76,12 +76,12 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.component.mybatis</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.component.mybatis</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.component.excel</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.component.excel</artifactId>
 		</dependency>
 
 		<dependency>
@@ -111,12 +111,12 @@
 			<artifactId>commons-email</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.component.http</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.component.http</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.tools.encrypt</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.tools.encrypt</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.mchange</groupId>

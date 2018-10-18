@@ -1,26 +1,22 @@
 package com.commiao.basic.business.tools.sms;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import basic.arch.component.http.builder.HCB;
-import basic.arch.component.http.client.HttpClientUtil;
-import basic.arch.component.http.common.HttpConfig;
-import basic.arch.component.http.common.HttpMethods;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import basic.arch.tools.utils.jsonxml.JsonUtils;
-
+import base.arch.component.http.builder.HCB;
+import base.arch.component.http.client.HttpClientUtil;
+import base.arch.component.http.common.HttpConfig;
+import base.arch.component.http.common.HttpMethods;
+import base.arch.tools.utils.jsonxml.JsonUtils;
 import com.alibaba.fastjson.JSON;
 import com.commiao.basic.business.tools.common.CommonAppRequestBody;
 import com.commiao.basic.business.tools.common.CommonAppResponseBody;
 import com.commiao.basic.business.tools.common.EnumerateUtils;
 import com.commiao.basic.business.tools.common.constant.GlobalResultCode;
 import com.commiao.basic.business.tools.config.ConfigBean;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SmsMain {
 	private static final Logger logger = LoggerFactory.getLogger(SmsMain.class);
@@ -83,7 +79,7 @@ public static void main(String[] args){
 								.method(HttpMethods.POST);
 		String sendStr = HttpClientUtil.post(httpConfig);
 	}
-	public static CommonAppResponseBody<SmsSendResult> smsSendUtil(boolean flagCode, String phone,String code, String type) {
+	public static CommonAppResponseBody<SmsSendResult> smsSendUtil(boolean flagCode, String phone, String code, String type) {
 		String url =  ConfigBean.getConfigBean().getSmsEmailConfig().getCommonSmsUrl();
 		String jsonData = null;
 		SmsParams smsInfo = new SmsParams();
@@ -187,10 +183,7 @@ public static void main(String[] args){
 	 * 
 	 * @Description::语音验证码 接口
 	 * @param    content 只能为数字
-	 * @param    flagCode:true 
-	 * @param    voiceSmsCode:true 
-	 * @param    scenarios:"sms_check_code" 
-	 * @param    phoneNum
+	 * @param    phone
 	 * @author wrx
 	 * @return
 	 */
@@ -236,7 +229,7 @@ public static void main(String[] args){
             return appResponseBody;
         }catch(Exception e){
             logger.error("请求参数解析错误,json数据是:{}",json);
-            throw  new SmsJsonParamsException("请求参数解析错误,json数据是:"+json,GlobalResultCode.CommonResultCode.PARAMS_RESOLVE_ERROR);
+            throw  new SmsJsonParamsException("请求参数解析错误,json数据是:"+json, GlobalResultCode.CommonResultCode.PARAMS_RESOLVE_ERROR);
         }
         
     }

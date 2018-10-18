@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import com.commiao.basic.business.tools.exception.ValidateParamsException;
 import com.commiao.sdk.controller.common.constant.CommonConstant;
 
-import basic.arch.tools.utils.common.BigdataConstants;
+import base.arch.tools.utils.common.BigdataConstants;
 import core.service.ServiceResponseBody;
 
 /**

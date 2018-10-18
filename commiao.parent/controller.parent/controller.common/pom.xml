@@ -19,24 +19,24 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.component.spring</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.component.spring</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.component.http</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.component.http</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.component.logger</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.component.logger</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.component.auditLogger</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.component.auditLogger</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.commiao.basic.parent</groupId>
-			<artifactId>basic.arch.tools.utils</artifactId>
+			<groupId>commiao.base.parent</groupId>
+			<artifactId>base.arch.tools.utils</artifactId>
 		</dependency>
 
 		<dependency>

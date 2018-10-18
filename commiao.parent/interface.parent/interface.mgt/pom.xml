@@ -19,8 +19,8 @@
 	    <artifactId>basic.business.entity</artifactId>
     </dependency>
 	<dependency>
-		<groupId>com.commiao.basic.parent</groupId>
-		<artifactId>basic.arch.component.mybatis</artifactId>
+		<groupId>commiao.base.parent</groupId>
+		<artifactId>base.arch.component.mybatis</artifactId>
 	</dependency>
     <dependency>
 	     <groupId>junit</groupId>

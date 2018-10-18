@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import basic.arch.tools.utils.common.ConvertUtils;
+import base.arch.tools.utils.common.ConvertUtils;
 import core.entity.RequestGenericity;
 import core.entity.ResponseGenericity;
 
@@ -63,8 +63,6 @@ public abstract class InterfaceBaseService<T extends RequestGenericity, K extend
 	/**
 	 * 
 	 * 公募基金接口调用
-	 * 
-	 * @see com.hengtianjf.inteface.pof.common.PofInterface#execute(com.hengtianjf.inteface.pof.common.InterfaceRequest)
 	 */
 	@Override
 	public InterfaceResponse<K> execute(InterfaceRequest<T> request) {
@@ -246,7 +244,7 @@ public abstract class InterfaceBaseService<T extends RequestGenericity, K extend
 	 * 
 	 * @Description::接口调用主逻辑——子类实现. <br/>
 	 * @author yuzhao
-	 * @param request
+	 * @param hsParam
 	 * @return
 	 */
 	protected abstract String doMethod(Map<String, Object> hsParam);
